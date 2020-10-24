@@ -80,7 +80,6 @@ def start():
 
     while True:
         success, img = cap.read()
-
         img = img[65:240, 230:395]
         
         imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
@@ -99,12 +98,12 @@ def start():
         upper = np.array([u_h, u_s, u_v])
 
         #mask = cv2.inRange(imgHSV, lower, upper)
-
+        #!! da rivedere !!
         white_mask = cv2.inRange(imgHSV, lw_mask, uw_mask)
         red_mask = cv2.inRange(imgHSV, lr_mask, ur_mask)
         orange_mask = cv2.inRange(imgHSV, lo_mask, uo_mask)
         yellow_mask = cv2.inRange(imgHSV, ly_mask, uy_mask)
-        blue_mask = cv2.inRange(imgHSV, lower, upper)
+        blue_mask = cv2.inRange(imgHSV, lb_mask, ub_mask)
         green_mask = cv2.inRange(imgHSV, lg_mask, ug_mask)
 
         full_mask = white_mask + red_mask + orange_mask + yellow_mask + blue_mask + green_mask
@@ -114,7 +113,38 @@ def start():
         #pixel smoothing
         blurred_full_mask = cv2.medianBlur(full_colored_mask, 15)
     
-        
+        #mask contours
+        w_contours, _ = cv2.findContours(white_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+        y_contours, _ = cv2.findContours(yellow_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+        b_contours, _ = cv2.findContours(blue_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+        r_contours, _ = cv2.findContours(red_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+        g_contours, _ = cv2.findContours(green_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+        o_contours, _ = cv2.findContours(orange_mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+
+        '''
+        #center point
+        M_w = cv2.moments(w_contours[0])
+        M_y = cv2.moments(y_contours[0])
+        M_b = cv2.moments(b_contours[0])
+        M_r = cv2.moments(r_contours[0])
+        M_g = cv2.moments(g_contours[0])
+        M_o = cv2.moments(o_contours[0])
+
+        cv2.circle(blurred_full_mask, (round(M_w['m10'] / M_w['m00']), round(M_w['m01'] / round(M_w['m00']))), 5, (0, 255, 0), -1)
+        cv2.circle(blurred_full_mask, (round(M_y['m10'] / M_y['m00']), round(M_y['m01'] / M_y['m00'])), 5, (0, 255, 0), -1)
+        cv2.circle(blurred_full_mask, (round(M_b['m10'] / M_b['m00']), round(M_b['m01'] / M_b['m00'])), 5, (0, 255, 0), -1)
+        cv2.circle(blurred_full_mask, (round(M_r['m10'] / M_r['m00']), round(M_r['m01'] / M_r['m00'])), 5, (0, 255, 0), -1)
+        cv2.circle(blurred_full_mask, (round(M_g['m10'] / M_g['m00']), round(M_g['m01'] / M_g['m00'])), 5, (0, 255, 0), -1)
+        cv2.circle(blurred_full_mask, (round(M_o['m10'] / M_o['m00']), round(M_o['m01'] / M_o['m00'])), 5, (0, 255, 0), -1)
+
+
+        cv2.drawContours(blurred_full_mask, w_contours, -1, (0, 255, 0), 3)
+        cv2.drawContours(blurred_full_mask, y_contours, -1, (0, 255, 0), 3)
+        cv2.drawContours(blurred_full_mask, o_contours, -1, (0, 255, 0), 3)
+        cv2.drawContours(blurred_full_mask, r_contours, -1, (0, 255, 0), 3)
+        cv2.drawContours(blurred_full_mask, g_contours, -1, (0, 255, 0), 3)
+        cv2.drawContours(blurred_full_mask, b_contours, -1, (0, 255, 0), 3)
+        '''
         
         cv2.imshow("Result", img)
         cv2.imshow("white mask", blurred_full_mask)
