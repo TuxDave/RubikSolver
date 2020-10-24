@@ -1,12 +1,22 @@
 import cv2
 import numpy as np
-
-if __name__ == "__main__":
-    start()
+import csv
 
 def nothing(x): pass
 
+'''
+0, "white"
+1, "blue"
+2, "yellow"
+3, "green"
+4, "orange"
+5, "red"
+'''
+
 def start():
+    file = open("./RubiksRecognition/resources/ranges.csv", 'r')
+    colorRanges = csv.reader(file)
+
     frameWidth = 680 #680
     frameHeight = 480 #480
 
@@ -48,3 +58,7 @@ def start():
         cv2.imshow("mask", mask)
 
         if cv2.waitKey(1) & 0xFF == ord("q"):   break
+    file.close()
+
+if __name__ == "__main__":
+    start()
