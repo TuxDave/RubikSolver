@@ -66,7 +66,32 @@ def fromImageToColorSequence(img, ranges):
                     found = False
             if found:
                 pos[i] = int(c)
-    return pos
+    
+    pos = ordinaDict(pos)
+
+    pos2 = {}
+    for i in range(9):
+        try:
+            if i == 0:
+                pos2[0] = pos[4]
+            elif i < 5:
+                pos2[i] = pos[i-1]
+            else:
+                pos2[i] = pos[i]
+        except:
+            pos2[i] = None
+                
+
+    return ordinaDict(pos2)
+
+def ordinaDict(dict1):
+    ret = {}
+    keys = [(key) for key in dict1.keys()]
+    keys.sort()
+    for key in keys:
+        ret[key] = dict1[key]
+    return ret
+
 
 if __name__ == "__main__":
     start(sys.argv[0])
