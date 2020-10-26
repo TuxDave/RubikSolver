@@ -100,7 +100,7 @@ def start():
         #mask = cv2.inRange(imgHSV, lower, upper)
         #!! da rivedere !!
         white_mask = cv2.inRange(imgHSV, lw_mask, uw_mask)
-        red_mask = cv2.inRange(imgHSV, lr_mask, ur_mask)
+        red_mask = cv2.inRange(imgHSV, lower, upper)
         orange_mask = cv2.inRange(imgHSV, lo_mask, uo_mask)
         yellow_mask = cv2.inRange(imgHSV, ly_mask, uy_mask)
         blue_mask = cv2.inRange(imgHSV, lb_mask, ub_mask)
