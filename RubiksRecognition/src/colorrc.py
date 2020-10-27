@@ -9,10 +9,9 @@ def nothing(x): pass
 FROM_INT_TO_COLOR = {0: "white",1: "blue",2: "yellow",3: "green",4: "orange",5: "red"}
 CUBE_LENGTH = 58
 BOUNDS = [((x)*CUBE_LENGTH, (y)*CUBE_LENGTH) for x in range(3) for y in range(3)]
-print(BOUNDS)
 CHECK_POINT = [(29,29)]
 
-def start(color):
+def start():
     file = open("./RubiksRecognition/resources/ranges.csv", 'r')
     COLOR_RANGES = csv.reader(file)
     RANGES = [(line) for line in COLOR_RANGES]
@@ -20,7 +19,7 @@ def start(color):
     frameWidth = 680 #680
     frameHeight = 480 #480
 
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture("RubiksRecognition/notTracked/cube1.mp4")
 
     cap.set(3, frameWidth)
     cap.set(4, frameHeight)
@@ -75,15 +74,25 @@ def fromImageToColorSequence(img, ranges):
     pos = ordinaDict(pos)
 
     pos2 = {}
-    pos2[0] = pos[4]
-    pos2[1] = pos[0]
-    pos2[2] = pos[1]
-    pos2[3] = pos[2]
-    pos2[4] = pos[5]
-    pos2[5] = pos[8]
-    pos2[6] = pos[7]
-    pos2[7] = pos[6]
-    pos2[8] = pos[3]
+    list = [4,0,1,2,5,8,7,6,3]
+    for n in range(9):
+        try:
+            pos2[n] = FROM_INT_TO_COLOR[pos[list[n]]]
+        except:
+            pos2[n] = None
+    '''
+    pos2[0] = FROM_INT_TO_COLOR[pos[4]]
+    pos2[1] = FROM_INT_TO_COLOR[pos[0]]
+    pos2[2] = FROM_INT_TO_COLOR[pos[1]]
+    pos2[3] = FROM_INT_TO_COLOR[pos[2]]
+    pos2[4] = FROM_INT_TO_COLOR[pos[5]]
+    pos2[5] = FROM_INT_TO_COLOR[pos[8]]
+    pos2[6] = FROM_INT_TO_COLOR[pos[7]]
+    pos2[7] = FROM_INT_TO_COLOR[pos[6]]
+    pos2[8] = FROM_INT_TO_COLOR[pos[3]]
+    '''
+
+    #TODO: Fare il sistema che trova il colore più comune per ogni posizione
 
     return ordinaDict(pos2)
     
@@ -98,4 +107,4 @@ def ordinaDict(dict1):
 
 
 if __name__ == "__main__":
-    start(sys.argv[0])
+    start()
