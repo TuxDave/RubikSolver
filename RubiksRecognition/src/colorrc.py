@@ -10,6 +10,7 @@ FROM_INT_TO_COLOR = {0: "white",1: "blue",2: "yellow",3: "green",4: "orange",5: 
 CUBE_LENGTH = 58
 BOUNDS = [((x)*CUBE_LENGTH, (y)*CUBE_LENGTH) for x in range(3) for y in range(3)]
 CHECK_POINT = [(29,29)]
+TRIES = 7
 
 def start():
     file = open("./RubiksRecognition/resources/ranges.csv", 'r')
@@ -25,18 +26,16 @@ def start():
     cap.set(4, frameHeight)
 
     while True:
-        success, img = cap.read()
-        try:
-            img = img[65:240, 230:405] #175*175
-        except:
-            cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-            success, img = cap.read()            
-        imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        img = fromCapToHSVImage(cap)
         
-        cv2.imshow("Result", img)
+        cv2.imshow("Result", cv2.cvtColor(img, cv2.COLOR_HSV2BGR))
 
         if cv2.waitKey(1) & 0xFF == ord("q"):
-            print(fromImageToColorSequence(imgHSV, RANGES.copy()))
+            faces = []
+            for i in range(TRIES):
+                faces.append(fromImageToColorSequence(img, RANGES))
+                img = fromCapToHSVImage(cap)
+            print(getMostCommon(faces, english=True))
         time.sleep(0.1)
     file.close()
 
@@ -77,7 +76,8 @@ def fromImageToColorSequence(img, ranges):
     list = [4,0,1,2,5,8,7,6,3]
     for n in range(9):
         try:
-            pos2[n] = FROM_INT_TO_COLOR[pos[list[n]]]
+            # pos2[n] = FROM_INT_TO_COLOR[pos[list[n]]] #per ottenere i colori in inglese
+            pos2[n] = pos[list[n]] # per ottenere i colori in numeri
         except:
             pos2[n] = None
     '''
@@ -96,6 +96,15 @@ def fromImageToColorSequence(img, ranges):
 
     return ordinaDict(pos2)
     
+def fromCapToHSVImage(cap):
+    success, img = cap.read()
+    try:
+        img = img[65:240, 230:405] #175*175
+    except:
+        cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
+        success, img = cap.read()            
+    imgHSV = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    return imgHSV
 
 def ordinaDict(dict1):
     ret = {}
@@ -104,6 +113,30 @@ def ordinaDict(dict1):
     for key in keys:
         ret[key] = dict1[key]
     return ret
+
+def getMostCommon(faces, english=False):
+    common = {}
+    keys = [(i) for i in range(9)]
+
+    for key in keys:
+        counter = {n:0 for n in range(6)} #conterrà quante volte sono ustiti tutti i colori
+        for face in faces:
+            if face[key] != None:
+                counter[face[key]] += 1
+        max = -1
+        colorMax = -1
+        for i in range(len(counter.keys())):
+            if counter[i] > max:
+                colorMax = i # il colore che è apparso piu volte
+                max = i
+        common[key] = colorMax
+    
+    if english:
+        for key in common.keys():
+            common[key] = FROM_INT_TO_COLOR[common[key]]
+
+    return common
+
 
 
 if __name__ == "__main__":
