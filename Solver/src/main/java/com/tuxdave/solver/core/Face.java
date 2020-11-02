@@ -205,6 +205,15 @@ public class Face {
             }
         }
     }
+    /**
+     * rotate "times" times
+     * @param times how many totation must be
+     */
+    public void rotate(int times){
+        for(int i = 0; i < times; i++){
+            rotate();
+        }
+    }
 
     /**
      * convert a color from string to integer

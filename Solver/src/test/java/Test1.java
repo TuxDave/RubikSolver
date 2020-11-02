@@ -19,7 +19,7 @@ public class Test1 {
         System.out.println();
         System.out.println(f);*/
         Cube c = new Cube("/home/tuxdave/Documenti/MyProjects/RubikSolver/Solver/examples/cube2.cube");
-        c.baseRotate(false);
+        c.move('l',true);
         System.out.println(c);
     }
 }
