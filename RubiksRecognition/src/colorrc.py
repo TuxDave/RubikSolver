@@ -3,6 +3,7 @@ import numpy as np
 import csv
 import sys
 import time
+import subprocess
 
 def nothing(x): pass
 
@@ -46,8 +47,9 @@ def start(path):
             export(path, ret)
             print("============CUBO COMPLETO============")
             print(ret)
-            ret = {}
+            break
     file.close()
+    return ret
 
 #prende un immagine in HSV e restituisce un array di numeri che sono i 
 def fromImageToColorSequence(img, ranges):
@@ -157,5 +159,13 @@ def export(path, faces): #codifica descritta nel foglio elettronico
         print(s)
         out.write(s)
 
+def export(faces):
+    s = ""
+    for el in ORDER.copy():
+        for spot in faces[el].values():
+            s += str(FROM_COLOR_TO_INT[spot]) + "\n"
+    return s
+
 if __name__ == "__main__":
-    start(sys.argv[1])
+    cube = start(sys.argv[1])
+    # TODO: chiamare java
