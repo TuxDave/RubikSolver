@@ -7,12 +7,13 @@ import time
 def nothing(x): pass
 
 FROM_INT_TO_COLOR = {0: "white",1: "blue",2: "yellow",3: "green",4: "orange",5: "red"}
+FROM_COLOR_TO_INT = {value : key for (key, value) in FROM_INT_TO_COLOR.items()}
 CUBE_LENGTH = 58
 BOUNDS = [((x)*CUBE_LENGTH, (y)*CUBE_LENGTH) for x in range(3) for y in range(3)]
 CHECK_POINT = [(29,29)]
 TRIES = 7
 
-def start():
+def start(path):
     file = open("./RubiksRecognition/resources/ranges.csv", 'r')
     COLOR_RANGES = csv.reader(file)
     RANGES = [(line) for line in COLOR_RANGES]
@@ -20,10 +21,12 @@ def start():
     frameWidth = 680 #680
     frameHeight = 480 #480
 
-    cap = cv2.VideoCapture("RubiksRecognition/notTracked/cube1.mp4")
+    cap = cv2.VideoCapture(0)
 
     cap.set(3, frameWidth)
     cap.set(4, frameHeight)
+
+    ret = {}
 
     while True:
         img = fromCapToHSVImage(cap)
@@ -35,11 +38,18 @@ def start():
             for i in range(TRIES):
                 faces.append(fromImageToColorSequence(img, RANGES))
                 img = fromCapToHSVImage(cap)
-            print(getMostCommon(faces, english=True))
-        time.sleep(0.1)
+            faces = getMostCommon(faces, True)
+            ret[FROM_COLOR_TO_INT[faces[0]]] = faces
+            print(ret[FROM_COLOR_TO_INT[faces[0]]])
+        
+        if(len(ret) == 6):
+            export(path, ret)
+            print("============CUBO COMPLETO============")
+            print(ret)
+            ret = {}
     file.close()
 
-#prende un immagine in HSV e restituisce un array di numeri che sono i colori
+#prende un immagine in HSV e restituisce un array di numeri che sono i 
 def fromImageToColorSequence(img, ranges):
     pos = {}
     for i in range(9):
@@ -137,7 +147,15 @@ def getMostCommon(faces, english=False):
 
     return common
 
-
+ORDER = [2,3,4,1,5,0]
+def export(path, faces): #codifica descritta nel foglio elettronico
+    s = ""
+    with open(path, "w") as out:
+        for el in ORDER.copy():
+            for spot in faces[el].values():
+                s += str(FROM_COLOR_TO_INT[spot]) + "\n"
+        print(s)
+        out.write(s)
 
 if __name__ == "__main__":
-    start()
+    start(sys.argv[1])
