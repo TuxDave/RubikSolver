@@ -212,7 +212,7 @@ public class Cube {
     }
 
     /**
-     * Method to move the cube's sides
+     * Method to move the cube's sides (the rotation is 90°, like r or r')
      * @param _move defines the cube notation (r, l, u, d, f, b)
      * @param _cw defines its rotation (true = clockwise, false = counter-clockwise)
      * 
@@ -226,9 +226,47 @@ public class Cube {
                 baseRotate(_cw);
                 reOrientate("u+");
                 reOrientate("u+");
+                break;
             }
-            break;
+            case 'r':{
+                baseRotate(_cw);
+                break;
+            }
+            case 'u':{
+                reOrientate("f+");
+                baseRotate(_cw);
+                reOrientate("f-");
+                break;
+            }
+            case 'd':{
+                reOrientate("f-");
+                baseRotate(_cw);
+                reOrientate("f+");
+                break;
+            }
+            case 'f':{
+                reOrientate("u-");
+                baseRotate(_cw);
+                reOrientate("u+");
+                break;
+            }
+            case 'b':{
+                reOrientate("u+");
+                baseRotate(_cw);
+                reOrientate("u-");
+            }
         }
+    }
+
+    /**
+     * Method to move the cube's sides (the trotation is 180°, like r2)
+     * @param _move defines the cube notation (r, l, u, d, f, b)
+     * 
+     * @author TuxDave
+     */
+    public void move(char _move){
+        move(_move, true);
+        move(_move, true);
     }
 
     //overrides
