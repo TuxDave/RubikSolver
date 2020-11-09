@@ -7,7 +7,7 @@ public class Face {
     private int color;
     private int[] body;
 
-    private static final HashBiMap<Integer, String> colorMap = HashBiMap.create();{
+    public static final HashBiMap<Integer, String> colorMap = HashBiMap.create();{
         colorMap.put(0, "white");
         colorMap.put(1, "blue");
         colorMap.put(2, "yellow");
@@ -94,17 +94,16 @@ public class Face {
      * @return provides an array with the column from below to top and from left to right
      */
     public int[] getBorder(String _border){
-        _border = _border.toLowerCase();
-        switch(_border){
+        switch(_border.toLowerCase()){
             case "u":
-                return new int[]{body[1],body[2],body[3]};
+                return new int[]{body[1],body[2],body[3]}.clone();
             case "d":
-                return new int[]{body[7],body[6],body[5]};
+                return new int[]{body[7],body[6],body[5]}.clone();
             default:
             case "r":
-                return new int[]{body[3],body[4],body[5]};
+                return new int[]{body[3],body[4],body[5]}.clone();
             case "l":
-                return new int[]{body[1],body[8],body[7]};
+                return new int[]{body[1],body[8],body[7]}.clone();
         }
     }
 
@@ -127,27 +126,27 @@ public class Face {
         int[] _colors = colors.clone();
         switch(_border.toLowerCase()){
             case "u":
-                for(int i = 1; i < 4; i++){
-                    body[i] = _colors[i-1];
-                }
+                body[1] = _colors[0];
+                body[2] = _colors[1];
+                body[3] = _colors[2];
                 break;
             case "d":{    
-                for(int i = 5; i < 8; i++){
-                    body[i] = _colors[2-(i-5)];
-                }
+                body[7] = _colors[0];
+                body[6] = _colors[1];
+                body[5] = _colors[2];
                 break;
             }
             default:
             case "r":{    
-                for(int i = 3; i < 6; i++){
-                    body[i] = _colors[i-3];
-                }
+                body[3] = _colors[0];
+                body[4] = _colors[1];
+                body[5] = _colors[2];
                 break;
             }
             case "l":
-                body[7] = _colors[2];
-                body[8] = _colors[1];
                 body[1] = _colors[0];
+                body[8] = _colors[1];
+                body[7] = _colors[2];
         }
     }
 
@@ -193,14 +192,14 @@ public class Face {
      * totates the spot's colors in clock direction
      */
     public void rotate(){
-        int[] temp = new int[]{body[7], body[8]};
+        int[] temp = new int[]{body[7], body[8]}.clone();
         for(int i = 8; i > 0; i--){
             int l = (i-2);
             if(i > 2){
                 body[i] = body[l];
             }else if(i == 2){
                 body[2] = temp[1];
-            }else{
+            }else if(i == 1){
                 body[1] = temp[0];
             }
         }
@@ -232,6 +231,6 @@ public class Face {
 
     @Override
     public String toString() {
-        return body[1] + " " + body[2] + " " + body[3] + "\n" + body[8] + " " + body[0] + " " + body[4] + "\n" +body[7] + " " + body[6] + " " + body[5];
+        return body[1] + " " + body[2] + " " + body[3] + "\n" + body[8] + " " + body[0] + " " + body[4] + "\n" + body[7] + " " + body[6] + " " + body[5];
     }
 }
