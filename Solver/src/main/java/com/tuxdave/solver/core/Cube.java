@@ -20,8 +20,6 @@ public class Cube {
         orientation.put("right", "orange");
     }
 
-    private HashMap<Character, Integer> rotateCounter = new HashMap<Character, Integer>();
-
     public final static HashBiMap<String, String> oppositeColors = HashBiMap.create();{
         oppositeColors.put("red", "orange");
         oppositeColors.put("white", "yellow");
@@ -68,13 +66,6 @@ public class Cube {
             }while(n != 6);
         }{//setting the orientation
             setBaseOrientation();
-        }{
-            rotateCounter.put('r', 0);
-            rotateCounter.put('l', 0);
-            rotateCounter.put('u', 0);
-            rotateCounter.put('f', 0);
-            rotateCounter.put('d', 0);
-            rotateCounter.put('b', 0);
         }
         //getFaceByColor("white").rotate();
     }
@@ -203,25 +194,6 @@ public class Cube {
     }*/
 
     /**
-     * the base rotate to do all the others rotation, it's a r or r'
-     * @param clockwise true if needs the clockwise rotation
-     */
-    public void baseRotate(boolean clockwise){
-        if(clockwise){
-            Face front = new Face(getFaceByPosition("front"));
-            getFaceByPosition("right").rotate();
-            getFaceByPosition("front").setBorder("r", getFaceByPosition("down").getBorder("r"));
-            getFaceByPosition("down").setBorder("r", getFaceByPosition("back").getBorder("l"));
-            getFaceByPosition("back").setBorder("l", getFaceByPosition("up").getBorder("r"));
-            getFaceByPosition("up").setBorder("r", front.getBorder("r"));
-        }else{
-            baseRotate(true);
-            baseRotate(true);
-            baseRotate(true);
-        }
-    }
-
-    /**
      * Method to move the cube's sides (the rotation is 90°, like r or r')
      * @param _move defines the cube notation (r, l, u, d, f, b)
      * @param _cw defines its rotation (true = clockwise, false = counter-clockwise)
@@ -232,16 +204,12 @@ public class Cube {
         switch(_move){
             case 'l':{
                 if(_cw){
-                    //boolean temp = rotateCounter.get('l') % 4 != 0;//TODO: capire perchè duplica il bianco
                     Face front = new Face(getFaceByPosition("front"));
-
                     getFaceByPosition("left").rotate();
                     getFaceByPosition("front").setBorder("l", getFaceByPosition("up").getBorder("l"));
                     getFaceByPosition("up").setBorder("l", reverse(getFaceByPosition("back").getBorder("r")));
                     getFaceByPosition("back").setBorder("r", reverse(getFaceByPosition("down").getBorder("l")));
                     getFaceByPosition("down").setBorder("l", front.getBorder("l"));
-
-                    //rotateCounter.put('l', rotateCounter.get('l') + 1);
                 }else{
                     move('l', true);
                     move('l', true);
@@ -254,10 +222,12 @@ public class Cube {
                     Face front = new Face(getFaceByPosition("front"));
                     getFaceByPosition("right").rotate();
                     getFaceByPosition("front").setBorder("r", getFaceByPosition("down").getBorder("r"));
-                    getFaceByPosition("down").setBorder("r", getFaceByPosition("back").getBorder("l"));
-                    getFaceByPosition("back").setBorder("l", getFaceByPosition("up").getBorder("r"));
+                    getFaceByPosition("down").setBorder("r", reverse(getFaceByPosition("back").getBorder("l")));
+                    getFaceByPosition("back").setBorder("l", reverse(getFaceByPosition("up").getBorder("r")));
                     getFaceByPosition("up").setBorder("r", front.getBorder("r"));
-                }else{rotateCounter.put('l', rotateCounter.get('l') + 1);
+                }else{
+                    move('r', true);
+                    move('r', true);
                     move('r', true);
                 }
                 break;
@@ -266,27 +236,60 @@ public class Cube {
                 if(_cw){
                     Face front = new Face(getFaceByPosition("front"));
                     getFaceByPosition("up").rotate();
-                    getFaceByPosition("front").setBorder("u", rotateCounter.get('u') % 2 == 0 ? getFaceByPosition("right").getBorder("u") : reverse(getFaceByPosition("right").getBorder("u")));
-                    getFaceByPosition("right").setBorder("u", rotateCounter.get('u') % 2 == 0 ? getFaceByPosition("back").getBorder("u") : reverse(getFaceByPosition("back").getBorder("u")));
-                    getFaceByPosition("back").setBorder("u", rotateCounter.get('u') % 2 == 0 ? getFaceByPosition("left").getBorder("u") : reverse(getFaceByPosition("left").getBorder("u")));
-                    getFaceByPosition("left").setBorder("u", rotateCounter.get('u') % 2 == 0 ? front.getBorder("u") : reverse(front.getBorder("u")));
-                    
-                    rotateCounter.put('u', rotateCounter.get('u') + 1);
+                    getFaceByPosition("front").setBorder("u", getFaceByPosition("right").getBorder("u"));
+                    getFaceByPosition("right").setBorder("u", getFaceByPosition("back").getBorder("u"));
+                    getFaceByPosition("back").setBorder("u", getFaceByPosition("left").getBorder("u"));
+                    getFaceByPosition("left").setBorder("u", front.getBorder("u"));
                 }else{
                     move('u', true);
                     move('u', true);
                     move('u', true);
                 }
                 break;
-
             }
             case 'd':{
+                if(_cw){
+                    Face front = new Face(getFaceByPosition("front"));
+                    getFaceByPosition("down").rotate();
+                    getFaceByPosition("front").setBorder("d", getFaceByPosition("left").getBorder("d"));
+                    getFaceByPosition("left").setBorder("d", getFaceByPosition("back").getBorder("d"));
+                    getFaceByPosition("back").setBorder("d", getFaceByPosition("right").getBorder("d"));
+                    getFaceByPosition("right").setBorder("d", front.getBorder("d"));
+                }else{
+                    move('d', true);
+                    move('d', true);
+                    move('d', true);
+                }
                 break;
             }
             case 'f':{
+                if(_cw){
+                    Face up = new Face(getFaceByPosition("up"));
+                    getFaceByPosition("front").rotate();
+                    getFaceByPosition("up").setBorder("d", getFaceByPosition("left").getBorder("r"));
+                    getFaceByPosition("left").setBorder("r", getFaceByPosition("down").getBorder("u"));
+                    getFaceByPosition("down").setBorder("u", getFaceByPosition("right").getBorder("l"));
+                    getFaceByPosition("right").setBorder("l", up.getBorder("d"));
+                }else{
+                    move('f', true);
+                    move('f', true);
+                    move('f', true);
+                }
                 break;
             }
             case 'b':{
+                if(_cw){
+                    Face up = new Face(getFaceByPosition("up"));
+                    getFaceByPosition("back").rotate();
+                    getFaceByPosition("up").setBorder("u", getFaceByPosition("right").getBorder("r"));
+                    getFaceByPosition("right").setBorder("r", reverse(getFaceByPosition("down").getBorder("d")));
+                    getFaceByPosition("down").setBorder("d", getFaceByPosition("left").getBorder("l"));
+                    getFaceByPosition("left").setBorder("l", reverse(up.getBorder("u")));
+                }else{
+                    move('b', true);
+                    move('b', true);
+                    move('b', true);
+                }
                 break;
             }
         }
