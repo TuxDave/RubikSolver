@@ -17,6 +17,4 @@ public class Solver {
     public Solver(Cube _c){
         setCoreCube(_c);
     }
-
-    
 }

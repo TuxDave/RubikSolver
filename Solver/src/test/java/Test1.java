@@ -1,10 +1,11 @@
 import com.tuxdave.solver.core.Cube;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Test1 {
-    public static void main(String[] args) throws IOException {
-        Cube c = new Cube("/home/tuxdave/Documenti/MyProjects/RubikSolver/Solver/examples/cube2.cube");
+    public static void main(String[] args) throws IOException, URISyntaxException {
+        Cube c = new Cube();
         c.move('r',true);
         c.move('u',true);
         c.move('r',false);

@@ -1,9 +1,10 @@
 package com.tuxdave.solver.core;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Arrays;
-import java.util.HashMap;
 
 import com.google.common.collect.HashBiMap;
 
@@ -14,13 +15,15 @@ public class Cube {
      * default position: front: green up: yellow right: orange
      */
     private HashBiMap<String, String> orientation = HashBiMap.create();
-    private void setBaseOrientation(){
+
+    private void setBaseOrientation() {
         orientation.put("up", "yellow");
         orientation.put("front", "green");
         orientation.put("right", "orange");
     }
 
-    public final static HashBiMap<String, String> oppositeColors = HashBiMap.create();{
+    public final static HashBiMap<String, String> oppositeColors = HashBiMap.create();
+    {
         oppositeColors.put("red", "orange");
         oppositeColors.put("white", "yellow");
         oppositeColors.put("blue", "green");
@@ -35,6 +38,15 @@ public class Cube {
      */
     public Cube(String path) throws IOException {
         this(new FileReader(path));
+    }
+
+    /**
+     * creates a solved cube
+     * @throws IOException
+     * @throws URISyntaxException
+     */
+    public Cube() throws IOException, URISyntaxException {//i created nre Face to get access to getClass
+        this(new FileReader(new File(new Face().getClass().getResource("/solved.cube").toURI())));
     }
 
     /**
