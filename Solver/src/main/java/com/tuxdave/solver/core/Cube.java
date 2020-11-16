@@ -278,9 +278,9 @@ public class Cube {
                 if(_cw){
                     Face up = new Face(getFaceByPosition("up"));
                     getFaceByPosition("front").rotate();
-                    getFaceByPosition("up").setBorder("d", getFaceByPosition("left").getBorder("r"));
+                    getFaceByPosition("up").setBorder("d", reverse(getFaceByPosition("left").getBorder("r")));
                     getFaceByPosition("left").setBorder("r", getFaceByPosition("down").getBorder("u"));
-                    getFaceByPosition("down").setBorder("u", getFaceByPosition("right").getBorder("l"));
+                    getFaceByPosition("down").setBorder("u", reverse(getFaceByPosition("right").getBorder("l")));
                     getFaceByPosition("right").setBorder("l", up.getBorder("d"));
                 }else{
                     move('f', true);
