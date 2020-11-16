@@ -7,7 +7,8 @@ import java.net.URISyntaxException;
 public class Test1 {
     public static void main(String[] args) throws IOException, URISyntaxException {
         Solver s = new Solver(new Cube());
-        System.out.println(s.scrumble(20));
+        //System.out.println(s.scrumble(8));
+        s.scrumble("R2 L' L R' U L' B' U'");
         System.out.println(s.getCoreCube());
         /*Cube c = new Cube();
         c.move('d', false);
