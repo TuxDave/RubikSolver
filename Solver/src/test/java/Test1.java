@@ -8,14 +8,9 @@ public class Test1 {
     public static void main(String[] args) throws IOException, URISyntaxException {
         Solver s = new Solver(new Cube());
         //System.out.println(s.scrumble(8));
-        s.scrumble("R2 L' L R' U L' B' U'");
+        s.scrumble("F' D2 D B' D B2 B' L R F'");
+        s.getCoreCube().reOrientate("f-");
+        s.getCoreCube().move('r', true);
         System.out.println(s.getCoreCube());
-        /*Cube c = new Cube();
-        c.move('d', false);
-        c.move('l', false);
-        c.move('d', true);
-        c.move('l', true);
-        c.move('l', true);
-        System.out.println(c);*/
     }
 }

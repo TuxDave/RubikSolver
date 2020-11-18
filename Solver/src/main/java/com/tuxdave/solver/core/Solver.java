@@ -92,4 +92,18 @@ public class Solver {
                 getCoreCube().move(move.toCharArray()[0], true);
         }
     }
+
+    private String makeWhiteCross(){
+        String ret = "";
+        
+        //for pieces on the lateral column of each vertical face:
+        //TODO: have to make reOrientate working
+
+        return ret;
+    }
+
+    public String solve(){
+        
+        return "";
+    }
 }

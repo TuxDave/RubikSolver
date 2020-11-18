@@ -148,21 +148,24 @@ public class Cube {
      * f- reverse
      * @param dir r+/r-/u+/u-/f+/f-
     */    
-    /*public void reOrientate(String dir){
+    public void reOrientate(String dir){
         String front = getFaceByPosition("front").getColor(), up = getFaceByPosition("up").getColor(), right = getFaceByPosition("right").getColor();
         boolean clockwise = (dir.toCharArray()[1] == '+' ? true : false);
         switch(dir.toLowerCase().toCharArray()[0]){
             case 'r':{
                 if(clockwise){
-                    front = getFaceByPosition("down").getColor();
                     up = getFaceByPosition("front").getColor();
+                    front = getFaceByPosition("down").getColor();
+                    //face rotations
                     getFaceByPosition("right").rotate();
                     getFaceByPosition("left").rotate(3);
+                    getFaceByPosition("up").rotate(2);
+                    getFaceByPosition("back").rotate(2);
                 }else{
-                    front = getFaceByPosition("up").getColor();
-                    up = getFaceByPosition("back").getColor();
-                    getFaceByPosition("left").rotate();
-                    getFaceByPosition("right").rotate(3);
+                    reOrientate("r+");
+                    reOrientate("r+");
+                    reOrientate("r+");
+                    return;
                 }
                 break;
             }
@@ -170,13 +173,14 @@ public class Cube {
                 if(clockwise){
                     front = getFaceByPosition("right").getColor();
                     right = getFaceByPosition("back").getColor();
+
                     getFaceByPosition("up").rotate();
                     getFaceByPosition("down").rotate(3);
                 }else{
-                    front = getFaceByPosition("left").getColor();
-                    right = getFaceByPosition("front").getColor();
-                    getFaceByPosition("down").rotate();
-                    getFaceByPosition("up").rotate(3);
+                    reOrientate("u+");
+                    reOrientate("u+");
+                    reOrientate("u+");
+                    return;
                 }
                 break;
             }
@@ -185,13 +189,18 @@ public class Cube {
                 if(clockwise){
                     up = getFaceByPosition("left").getColor();
                     right = getFaceByPosition("up").getColor();
+                    
                     getFaceByPosition("front").rotate();
                     getFaceByPosition("back").rotate(3);
+                    getFaceByPosition("up").rotate();
+                    getFaceByPosition("right").rotate();
+                    getFaceByPosition("down").rotate();
+                    getFaceByPosition("left").rotate();
                 }else{
-                    up = getFaceByPosition("right").getColor();
-                    right = getFaceByPosition("down").getColor();
-                    getFaceByPosition("back").rotate();
-                    getFaceByPosition("front").rotate(3);
+                    reOrientate("f+");
+                    reOrientate("f+");
+                    reOrientate("f+");
+                    return;
                 }
                 break;
             }
@@ -203,7 +212,7 @@ public class Cube {
         orientation.put("front", front);
         orientation.put("up", up);
         orientation.put("right", right);
-    }*/
+    }
 
     /**
      * Method to move the cube's sides (the rotation is 90°, like r or r')
