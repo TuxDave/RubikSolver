@@ -1,18 +1,25 @@
 package com.tuxdave.solver.logic;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.ArrayList;
 
 import com.google.common.collect.HashBiMap;
 import com.tuxdave.solver.core.Cube;
 import com.tuxdave.solver.core.Face;
+import com.tuxdave.solver.extra.JsonManager;
+import com.tuxdave.solver.extra.MoveListener;
 import com.tuxdave.solver.extra.ValueNotInRangeException;
 
-public class Solver {
-    Cube core;
-    Scrambler scrambler;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+public class Solver implements MoveListener{
+    private Cube core;
+    private Scrambler scrambler;
+    private JsonManager algorithms;
+    private ArrayList<String> moveHistory;
 
     public HashBiMap<Integer, Character> FROM_NUMBER_TO_MOVE = HashBiMap.create();
 
@@ -20,8 +27,10 @@ public class Solver {
      * construct the Solver
      * 
      * @param _c the cube to solve
+     * @throws URISyntaxException
+     * @throws IOException
      */
-    public Solver(Cube _c) {
+    public Solver(Cube _c) throws IOException, URISyntaxException {
         {
             FROM_NUMBER_TO_MOVE.put(0, 'r');
             FROM_NUMBER_TO_MOVE.put(1, 'l');
@@ -32,6 +41,8 @@ public class Solver {
         }
         setCoreCube(_c);
         scrambler = new Scrambler();
+        moveHistory = new ArrayList<String>();
+        algorithms = new JsonManager(new File(new Face().getClass().getResource("/algorithm.json").toURI()));
     }
 
     public Cube getCoreCube() {
@@ -40,6 +51,20 @@ public class Solver {
 
     public void setCoreCube(Cube _new) {
         this.core = _new;
+        this.core.moveListener = this;
+        System.out.println("");
+    }
+
+    public String getMoveHistory(){
+        String s = "";
+        for(String s1 : moveHistory){
+            s += s1 + " ";
+        }
+        return s;
+    }
+
+    public JsonManager getAlgorithms(){
+        return algorithms;
     }
 
     /**
@@ -54,6 +79,7 @@ public class Solver {
         for(String s : arr){
             history += s + " ";
         }
+        scramble(history);
         return history;
     }
 
@@ -68,6 +94,7 @@ public class Solver {
     public void scramble(String moves){
         try {
             core = new Cube();
+            core.moveListener = this;
         } catch (IOException | URISyntaxException ignored) {}
         
         String[] sequence = moves.toLowerCase().split(" ");
@@ -79,6 +106,26 @@ public class Solver {
                     getCoreCube().move(move.toCharArray()[0]);
             }else
                 getCoreCube().move(move.toCharArray()[0], true);
+        }
+    }
+    
+    public void runAlgorithm(String algName){
+        runAlgorithm(algorithms.getValueByKey(algName).split(" "));
+    }
+
+    /**
+     * Gets the selected algorithm form a file
+     */
+    public void runAlgorithm(String[] alg){
+        for(String s : alg){
+            s = s.toLowerCase();
+            if(s.length() == 1){
+                core.move(s.toCharArray()[0], true);//clockwise
+            }else if(s.charAt(1) == '\''){
+                core.move(s.charAt(0), false);//counter-clockwise
+            }else{
+                core.move(s.charAt(0));//two spins
+            }
         }
     }
 
@@ -122,7 +169,7 @@ public class Solver {
         }
         //for the yellow face
         int add = 4;
-        for(int i = 2; i < 9; i = i + 2){
+        for(int i = 2; i < 9; i += 2){
             if(core.getFaceByPosition("up").getSpot(i) == Face.fromColorToInt("white")){
                 while(whiteFace.getSpot((i % 4 == 0 ? i : i + add)) == Face.fromColorToInt("white")){
                     core.move('d', false);
@@ -140,15 +187,24 @@ public class Solver {
                     case 8:
                         core.move('l');
                 }
-                add = -add;//TODO: Togliere index out of bound perchè ho usato add invece che il dict ecc
+            }
+            if(i == 4){
+                add = -4;
             }
         }
 
+        //make the white cross right
+        //TODO: fare la croce bianca giusta
         return ret;
     }
 
     public String solve(){
         makeWhiteCross();
         return "";
+    }
+
+    @Override
+    public void onMove(char m, boolean cw) {
+        moveHistory.add(Character.toString(Character.toUpperCase(m)) + (cw ? "" : "'"));
     }
 }

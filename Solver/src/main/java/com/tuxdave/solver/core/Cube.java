@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 
 import com.google.common.collect.HashBiMap;
+import com.tuxdave.solver.extra.MoveListener;
 
 public class Cube {
     private Face[] faces;
@@ -15,6 +16,8 @@ public class Cube {
      * default position: front: green up: yellow right: orange
      */
     private HashBiMap<String, String> orientation = HashBiMap.create();
+
+    public MoveListener moveListener;
 
     private void setBaseOrientation() {
         orientation.put("up", "yellow");
@@ -222,6 +225,9 @@ public class Cube {
      * @author TuxDave-Kawagit
      */
     public void move(char _move, boolean _cw){
+        if(moveListener != null)
+            moveListener.onMove(_move, _cw);
+        
         switch(_move){
             case 'l':{
                 if(_cw){
