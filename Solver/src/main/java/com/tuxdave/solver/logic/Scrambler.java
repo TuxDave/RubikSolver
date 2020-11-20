@@ -1,6 +1,6 @@
-package modules;
+package com.tuxdave.solver.logic;
 
-import exceptions.ValueNotInRangeException;
+import com.tuxdave.solver.extra.ValueNotInRangeException;
 import java.util.Random;
 
 /**

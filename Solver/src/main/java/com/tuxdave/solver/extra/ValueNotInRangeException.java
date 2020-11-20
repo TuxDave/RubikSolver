@@ -1,4 +1,4 @@
-package exceptions;
+package com.tuxdave.solver.extra;
 
 /**
  * Simple exception used when a variable is not in a specific range
