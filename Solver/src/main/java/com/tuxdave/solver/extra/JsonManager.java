@@ -18,14 +18,7 @@ public class JsonManager {
 
     public JsonManager(File _src) throws IOException{
         BufferedReader temp = new BufferedReader(new FileReader(_src));
-        String jsonString = "";
-        String line;
-        do{
-            line = temp.readLine();
-            if(line != null)
-                jsonString += line + '\n';
-        }while(line != null);
-        src = new JSONObject(jsonString);
+        src = new JSONObject(Utils.fromFileToString(_src));
     }
 
     public String getValueByKey(String _key){
