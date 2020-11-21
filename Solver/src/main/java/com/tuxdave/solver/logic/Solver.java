@@ -109,14 +109,19 @@ public class Solver implements MoveListener{
         }
     }
     
+    /**
+     * run on the core cube the specified algorithm in base the cube orientation
+     * @param algName the name of an existing algorithm
+     */
     public void runAlgorithm(String algName){
-        runAlgorithm(algorithms.getValueByKey(algName).split(" "));
+        runAlgorithm(new Algorithm(algorithms.getValueByKey(algName)));
     }
 
     /**
      * Gets the selected algorithm form a file
+     * @param alg the algorithm
      */
-    public void runAlgorithm(String[] alg){
+    public void runAlgorithm(Algorithm alg){
         for(String s : alg){
             s = s.toLowerCase();
             if(s.length() == 1){

@@ -32,9 +32,7 @@ public class JsonManager {
         try{
             return src.getString(_key);
         }catch(NullPointerException e){
-            System.err.println("Impossibile trovare chiave valore: " + _key);
-            e.printStackTrace();
+            throw new NullPointerException("Algorithm :" + _key + " not found");
         }
-        return "";
     }
 }
