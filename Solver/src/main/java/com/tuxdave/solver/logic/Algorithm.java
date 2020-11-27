@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class Algorithm implements Iterable<String> {
     private ArrayList<String> sequence = new ArrayList<String>();
 
-    private final static String symbols = "([RLUBDF]{1}(['2]{1})?)";
+    private final static String symbols = "([RLUBDFxyz]{1}(['2+-]{1})?)";
 
     /**
      * @param alg the sequence, syntax: "R L2 U'" keySensitive and spaces required
@@ -20,7 +20,7 @@ public class Algorithm implements Iterable<String> {
                 throw new IllegalArgumentException("Please respect the algorithm syntax!");
         }
     }
-    
+
     /**
      * @return a String like the costructor's required
      */
@@ -41,6 +41,7 @@ public class Algorithm implements Iterable<String> {
 
     /**
      * it allows to use the for-each<String> to iterate all the moves
+     * 
      * @return
      */
     @Override
