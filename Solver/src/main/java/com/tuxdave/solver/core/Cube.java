@@ -4,13 +4,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import javax.swing.text.Utilities;
+
 import com.google.common.collect.HashBiMap;
 import com.tuxdave.solver.extra.MoveListener;
+import com.tuxdave.solver.extra.Utils;
 
 public class Cube {
     private Face[] faces;
@@ -43,7 +47,7 @@ public class Cube {
      * @throws IOException if the file not exists
      */
     public Cube(String path) throws IOException {
-        this(new FileReader(path));
+        this(new URL(path));
     }
 
     /**
@@ -53,28 +57,20 @@ public class Cube {
      * @throws URISyntaxException
      */
     public Cube() throws IOException, URISyntaxException {// i created nre Face to get access to getClass
-        this(new FileReader(new File(new Face().getClass().getResource("/solved.cube").toURI())));
+        this(new Face().getClass().getClassLoader().getResource("resources/solved.cube"));
     }
 
     /**
      * @param file a FileReader opening the cube source file
      * @throws IOException if the file not exists
      */
-    public Cube(FileReader file) throws IOException {
+    public Cube(URL file) throws IOException {
         int[] cube = new int[54];
         {// reads the cube from file
-            int temp = 0;
-            char c;
-            do {
-                c = (char) file.read();
-                if (c != '\n') {
-                    cube[temp++] = Integer.parseInt(String.valueOf(c));
-                }
-            } while (temp != 54);
-            file.close();
-            /*
-             * for(int i = 0; i < 54; i++){ System.out.println(cube[i]); }
-             */
+            String[] stringFile = Utils.fromFileToString(file).split("\n");
+            for (int i = 0; i < 54; i++) {
+                cube[i] = Integer.parseInt(stringFile[i]);
+            }
         }
         {// creates the faces
             faces = new Face[6];

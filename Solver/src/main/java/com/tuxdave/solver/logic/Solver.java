@@ -41,7 +41,7 @@ public class Solver implements MoveListener {
         setCoreCube(_c);
         scrambler = new Scrambler();
         moveHistory = new ArrayList<String>();
-        algorithms = new JsonManager(new File(new Face().getClass().getResource("/algorithm.json").toURI()));
+        algorithms = new JsonManager(new Face().getClass().getClassLoader().getResource("resources/algorithm.json"));
     }
 
     public Cube getCoreCube() {
