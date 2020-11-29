@@ -1,11 +1,7 @@
 package com.tuxdave.solver.logic;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-
-import javax.swing.text.AttributeSet.ColorAttribute;
 
 import com.google.common.collect.HashBiMap;
 import com.tuxdave.solver.core.Cube;
@@ -18,7 +14,7 @@ public class Solver implements MoveListener {
     private Cube core;
     private Scrambler scrambler;
     private JsonManager algorithms;
-    private ArrayList<String> moveHistory;
+    private Algorithm moveHistory;
 
     public HashBiMap<Integer, Character> FROM_NUMBER_TO_MOVE = HashBiMap.create();
 
@@ -40,7 +36,7 @@ public class Solver implements MoveListener {
         }
         setCoreCube(_c);
         scrambler = new Scrambler();
-        moveHistory = new ArrayList<String>();
+        moveHistory = new Algorithm();
         algorithms = new JsonManager(new Face().getClass().getClassLoader().getResource("resources/algorithm.json"));
     }
 
@@ -108,7 +104,7 @@ public class Solver implements MoveListener {
             } else
                 getCoreCube().move(move.toCharArray()[0], true);
         }
-        moveHistory = new ArrayList<String>();
+        moveHistory = new Algorithm();
     }
 
     /**
@@ -211,10 +207,6 @@ public class Solver implements MoveListener {
                 add = -4;
             }
         }
-
-        // make the white cross right
-        // TODO: fare la croce bianca giusta
-
         HashBiMap<Integer, String> fromUpToClosest = HashBiMap.create();
         fromUpToClosest.put(2, "back");
         fromUpToClosest.put(4, "right");
