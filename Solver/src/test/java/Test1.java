@@ -11,9 +11,10 @@ import java.net.URISyntaxException;
 
 public class Test1 {
     public static void main(String[] args) throws IOException, URISyntaxException, ValueNotInRangeException {
-        Algorithm a = new Algorithm(
-                "y+ R R R y+ y+ y+ D D D F F D D D D D D D D D L L y+ F F U U U R R U F F y+ y+ y+");
-        System.out.println(a);
-        // System.out.println(a.equalsThenNext(1, 3));
+        Solver s = new Solver(new Cube());
+        s.scramble("B F D' R D' F' B U F D'");
+        s.solve();
+        System.out.println(s.getCoreCube());
+        System.out.println(s.getMoveHistory());
     }
 }

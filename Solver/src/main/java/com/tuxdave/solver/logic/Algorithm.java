@@ -79,22 +79,43 @@ public class Algorithm implements Iterable<String> {
     }
 
     public void shorten() {
-        /*
-         * int i = 0; Algorithm alg = new Algorithm(); String current = null; while (i <
-         * size()) { current = sequence.get(i); if (equalsThenNext(i, 3)) {// if this is
-         * equals then all the next 3 // if i do 4 times the same move it's like do not
-         * it i += 4; } else if (equalsThenNext(i, 2)) { if (current.length() == 1) {
-         * current += '\''; alg.add(current); } else { if (current.charAt(1) == '\'') {
-         * current = "" + current.charAt(0); } else if (current.charAt(1) == '+' ||
-         * current.charAt(1) == '-') { current.toCharArray()[1] = (current.charAt(1) ==
-         * '+' ? '-' : '+'); } alg.add(current); } i += 3; } else if (equalsThenNext(i,
-         * 1)) { if (current.length() == 1) { current += "2"; i += 2; } else { if
-         * (current.charAt(1) == '\'') { current.toCharArray()[1] = '2'; i += 2; } else
-         * if (current.charAt(1) == '2') { current = null; i += 2; } else if
-         * (current.charAt(1) == '+' || current.charAt(1) == '-') { i += 1; } } if
-         * (current != null) { alg.add(current); } } } sequence = alg.sequence;// TODO:
-         * capire perchè while infinito
-         */
+        int size = size();
+        Algorithm target = new Algorithm();
+        int i = 0;
+        String current = null;
+        while (i <= size - 4) {// go untill it reach the trd last
+            current = sequence.get(i);
+            if (equalsThenNext(i, 3)) {
+                i += 4;// -1 because the continue imcrements i
+                continue;
+            } else if (equalsThenNext(i, 2)) {
+                if (current.length() == 2) {
+                    if (current.charAt(1) == '2')
+                        target.add(current);
+                    else if (current.charAt(1) == '+' || current.charAt(1) == '-')
+                        target.add(current.charAt(0) + (current.charAt(1) == '+' ? "-" : "+"));
+                    else
+                        target.add("" + current.charAt(0));
+                } else {
+                    target.add(current + "'");
+                }
+                i += 3;
+                continue;
+            } else if (equalsThenNext(i, 1)) {
+                if (current.length() == 2) {
+                    if (current.charAt(1) == '\'')
+                        target.add(current.charAt(0) + "2");
+                } else {
+                    target.add(current + "2");
+                }
+                i += 2;
+                continue;
+            } else {
+                target.add(current);
+                i++;
+            }
+        }
+        sequence = target.sequence;
     }
 
     /**
@@ -109,9 +130,14 @@ public class Algorithm implements Iterable<String> {
 
     @Override
     public String toString() {
-        shorten();
         String s = "";
         int size1 = size();
+        for (int i = 0; i < size1; i++) {
+            s += sequence.get(i) + (i == size1 - 1 ? "" : " ");
+        }
+        // shorten();
+        s = "";
+        size1 = size();
         for (int i = 0; i < size1; i++) {
             s += sequence.get(i) + (i == size1 - 1 ? "" : " ");
         }
