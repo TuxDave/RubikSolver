@@ -147,6 +147,9 @@ public class Solver implements MoveListener {
     }
 
     private String makeWhiteCross() {
+        // reset the history
+        moveHistory.reset();
+
         String ret = "";
         Face whiteFace = core.getFaceByPosition("down");
 
@@ -243,8 +246,13 @@ public class Solver implements MoveListener {
         return ret;
     }
 
+    private void makeWhiteFace() {
+        makeWhiteCross();// creates the white cross first of all
+
+    }
+
     public String solve() {
-        makeWhiteCross();
+        makeWhiteFace();
         return "";
     }
 

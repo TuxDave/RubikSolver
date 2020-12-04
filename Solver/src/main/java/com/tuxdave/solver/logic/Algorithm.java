@@ -2,7 +2,6 @@ package com.tuxdave.solver.logic;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class Algorithm implements Iterable<String> {
     private ArrayList<String> sequence = new ArrayList<String>();
@@ -26,6 +25,10 @@ public class Algorithm implements Iterable<String> {
 
     public Algorithm() {
         this("");
+    }
+
+    public void reset() {
+        sequence = new ArrayList<String>();
     }
 
     /**
