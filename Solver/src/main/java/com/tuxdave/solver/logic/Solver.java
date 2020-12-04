@@ -51,11 +51,7 @@ public class Solver implements MoveListener {
     }
 
     public String getMoveHistory() {
-        String s = "";
-        for (String s1 : moveHistory) {
-            s += s1 + " ";
-        }
-        return s;
+        return moveHistory.toString();
     }
 
     public JsonManager getAlgorithms() {

@@ -1,11 +1,7 @@
 import com.tuxdave.solver.core.Cube;
-import com.tuxdave.solver.core.Face;
-import com.tuxdave.solver.extra.JsonManager;
 import com.tuxdave.solver.extra.ValueNotInRangeException;
-import com.tuxdave.solver.logic.Algorithm;
 import com.tuxdave.solver.logic.Solver;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 

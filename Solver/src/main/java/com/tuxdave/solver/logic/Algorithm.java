@@ -133,14 +133,9 @@ public class Algorithm implements Iterable<String> {
 
     @Override
     public String toString() {
+        shorten();
         String s = "";
         int size1 = size();
-        for (int i = 0; i < size1; i++) {
-            s += sequence.get(i) + (i == size1 - 1 ? "" : " ");
-        }
-        // shorten();
-        s = "";
-        size1 = size();
         for (int i = 0; i < size1; i++) {
             s += sequence.get(i) + (i == size1 - 1 ? "" : " ");
         }
