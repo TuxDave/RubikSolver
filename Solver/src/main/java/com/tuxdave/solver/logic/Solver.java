@@ -155,6 +155,12 @@ public class Solver implements MoveListener {
 
         for (int i = 0; i < 4; i++) {// for the vertical faces
 
+            // when white is in the south spot (6)
+            if (core.getFaceByPosition("front").getSpot(6) == Face.fromColorToInt("white")) {
+                core.move('f', false);
+                core.move('d', true);
+                core.move('r', false);
+            }
             // when white is in the north spot (2)
             if (core.getFaceByPosition("front").getSpot(2) == Face.fromColorToInt("white")) {
                 while (whiteFace.getSpot(4) == Face.fromColorToInt("white")) {
@@ -167,12 +173,6 @@ public class Solver implements MoveListener {
                 while (whiteFace.getSpot(4) == Face.fromColorToInt("white")) {
                     core.move('d', false);
                 }
-                core.move('r', false);
-            }
-            // when white is in the south spot (6)
-            if (core.getFaceByPosition("front").getSpot(6) == Face.fromColorToInt("white")) {
-                core.move('f', false);
-                core.move('d', true);
                 core.move('r', false);
             }
             // when white is in the west spot (8)
