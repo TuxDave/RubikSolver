@@ -148,7 +148,7 @@ public class Solver implements MoveListener {
 
         String ret = "";
         Face whiteFace = core.getFaceByPosition("down");
-        for (int z = 0; z < 2; z++)
+        for (int z = 0; z < 3; z++)
             for (int i = 0; i < 4; i++) {// for the vertical faces
 
                 for (int j = 0; j < 4; j++) {

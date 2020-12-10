@@ -20,7 +20,7 @@ public class Test1 {
         double avarageMoves = 0;
         String solve;
         int moves = 0;
-        int tries = 100;
+        int tries = 10000;
         boolean ok = false;
         Face f;
         for (int i = 0; i < tries; i++) {
@@ -57,7 +57,7 @@ public class Test1 {
         r.close();
 
         // Solver solver = new Solver(new Cube());
-        // solver.scramble("L2 F L2 F L2 D' U' R L R' U' B' R B' R'");
+        // solver.scramble("F2 D R2 U2 F U R F2 L U2 R2 B' D B L2");
         // solver.solve();
         // System.out.println(solver.getCoreCube());
         // System.out.println(solver.getMoveHistory());
