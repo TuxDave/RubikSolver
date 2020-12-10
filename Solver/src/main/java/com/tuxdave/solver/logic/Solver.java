@@ -148,39 +148,41 @@ public class Solver implements MoveListener {
 
         String ret = "";
         Face whiteFace = core.getFaceByPosition("down");
+        for (int z = 0; z < 2; z++)
+            for (int i = 0; i < 4; i++) {// for the vertical faces
 
-        for (int i = 0; i < 4; i++) {// for the vertical faces
+                for (int j = 0; j < 4; j++) {
+                    // when white is in the south spot (6)
+                    if (core.getFaceByPosition("front").getSpot(6) == Face.fromColorToInt("white")) {
+                        core.move('f', false);
+                        core.move('d', true);
+                        core.move('r', false);
+                    }
+                    // when white is in the north spot (2)
+                    if (core.getFaceByPosition("front").getSpot(2) == Face.fromColorToInt("white")) {
+                        while (whiteFace.getSpot(4) == Face.fromColorToInt("white")) {
+                            core.move('d', false);
+                        }
+                        runAlgorithm(new Algorithm("F R' F'"));
+                    }
+                    // when white is in the easth spot (4)
+                    if (core.getFaceByPosition("front").getSpot(4) == Face.fromColorToInt("white")) {
+                        while (whiteFace.getSpot(4) == Face.fromColorToInt("white")) {
+                            core.move('d', false);
+                        }
+                        core.move('r', false);
+                    }
+                    // when white is in the west spot (8)
+                    if (core.getFaceByPosition("front").getSpot(8) == Face.fromColorToInt("white")) {
+                        while (whiteFace.getSpot(8) == Face.fromColorToInt("white")) {
+                            core.move('d', false);
+                        }
+                        core.move('l', true);
+                    }
+                }
 
-            // when white is in the south spot (6)
-            if (core.getFaceByPosition("front").getSpot(6) == Face.fromColorToInt("white")) {
-                core.move('f', false);
-                core.move('d', true);
-                core.move('r', false);
+                core.reOrientate("u+");
             }
-            // when white is in the north spot (2)
-            if (core.getFaceByPosition("front").getSpot(2) == Face.fromColorToInt("white")) {
-                while (whiteFace.getSpot(4) == Face.fromColorToInt("white")) {
-                    core.move('d', false);
-                }
-                runAlgorithm(new Algorithm("F R' F'"));
-            }
-            // when white is in the easth spot (4)
-            if (core.getFaceByPosition("front").getSpot(4) == Face.fromColorToInt("white")) {
-                while (whiteFace.getSpot(4) == Face.fromColorToInt("white")) {
-                    core.move('d', false);
-                }
-                core.move('r', false);
-            }
-            // when white is in the west spot (8)
-            if (core.getFaceByPosition("front").getSpot(8) == Face.fromColorToInt("white")) {
-                while (whiteFace.getSpot(8) == Face.fromColorToInt("white")) {
-                    core.move('d', false);
-                }
-                core.move('l', true);
-            }
-
-            core.reOrientate("u+");
-        }
         // for the yellow face
         int add = 4;
         for (int i = 2; i < 9; i += 2) {
@@ -262,11 +264,12 @@ public class Solver implements MoveListener {
         /*
          * r = x u = y f = z
          */
-        if (_dir.charAt(0) == 'r')
+        if (_dir.charAt(0) == 'r') {
             moveHistory.add(Character.toString('x') + _dir.charAt(1));
-        else if (_dir.charAt(0) == 'u')
+        } else if (_dir.charAt(0) == 'u') {
             moveHistory.add(Character.toString('y') + _dir.charAt(1));
-        else
+        } else {
             moveHistory.add(Character.toString('z') + _dir.charAt(1));
+        }
     }
 }

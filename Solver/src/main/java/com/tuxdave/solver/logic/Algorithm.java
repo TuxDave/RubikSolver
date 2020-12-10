@@ -73,10 +73,14 @@ public class Algorithm implements Iterable<String> {
      */
     public boolean equalsThenNext(int start, int _for) {
         boolean equals = true;
-        for (int i = start; i <= start + _for; i++) {
-            if (!sequence.get(start).equals(sequence.get(i))) {
-                equals = false;
+        try {
+            for (int i = start; i <= start + _for; i++) {
+                if (!sequence.get(start).equals(sequence.get(i))) {
+                    equals = false;
+                }
             }
+        } catch (Exception e) {
+            return false;
         }
         return equals;
     }
@@ -86,7 +90,7 @@ public class Algorithm implements Iterable<String> {
         Algorithm target = new Algorithm();
         int i = 0;
         String current = null;
-        while (i <= size - 4) {// go untill it reach the trd last
+        while (i < size) {// go untill it reach the trd last
             current = sequence.get(i);
             if (equalsThenNext(i, 3)) {
                 i += 4;// -1 because the continue imcrements i
@@ -108,6 +112,10 @@ public class Algorithm implements Iterable<String> {
                 if (current.length() == 2) {
                     if (current.charAt(1) == '\'')
                         target.add(current.charAt(0) + "2");
+                    else {
+                        target.add(current);
+                        target.add(current);
+                    }
                 } else {
                     target.add(current + "2");
                 }
@@ -118,6 +126,9 @@ public class Algorithm implements Iterable<String> {
                 i++;
             }
         }
+        // for (; i < size; i++) {
+        // target.add(sequence.get(i));
+        // }
         sequence = target.sequence;
     }
 

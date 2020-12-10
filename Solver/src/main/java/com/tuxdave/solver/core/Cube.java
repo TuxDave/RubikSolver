@@ -154,8 +154,9 @@ public class Cube {
      * @param dir r+/r-/u+/u-/f+/f-
      */
     public void reOrientate(String dir) {
-        if (dir.charAt(1) == '+')
+        if (dir.charAt(1) == '+') {
             moveListener.onRotate(dir);
+        }
 
         String front = getFaceByPosition("front").getColor(), up = getFaceByPosition("up").getColor(),
                 right = getFaceByPosition("right").getColor();

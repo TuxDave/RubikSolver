@@ -1,0 +1,103 @@
+D2 R B2 U2 L2 U' B' D2 L U2 R L2 D' L' R' ,R' D' B2 D2 R2 F2 U' R2 U' B2 U' L2 U' F2,22,true
+F2 B' R2 D' R L2 D2 B R B' L2 D' L F' L2 ,L y+ y+ L y+ F R' F' L y+,6,true
+U2 B' L B' U' F2 U' D L B D' R2 B F L2 ,D' R' y+ y+ D R' y+ y+ F2 U' R2 U F2 y+ y+ F2 U' R2 U F2 y+ y+,20,true
+U2 L' F' D2 U2 D' F2 B' U F2 L' D2 B' R2 D2 ,L y+ F' D R' D' F R' F' L y- F2 U' R2 U2 L2 U B2 U2 F2,25,true
+D' U D' L' F' B2 F D2 U2 L2 D' L R F' U2 ,F' D R' D' R' y+ y+ F R' F' y+ y+ D' R2 F2 U' R2 U F2,19,true
+F2 B' F' L2 F' R2 F D F' L2 B' D2 F' R F ,F' D R' y+ y+ D' L D2 L y+ y+ F2 U2 B2 U' L2 U' F2,20,true
+U2 D2 U' L' B L2 B' U' R2 L R' B' L R U ,y+ y+ F R' F' y+ D' R' D' R' y+ F2 U L2 U2 R2 U F2,19,true
+B2 R L2 F2 R L' B2 U2 L D2 U F B2 U2 F ,y+ y+ R' D2 R' y+ y+ U2 B2 U R2 U2 L2 U' F2,18,true
+U D2 F U2 D2 R' L' F2 D' B' R2 U D' F2 L2 ,y+ F' D R' y+ L D2 L y+ y+ F2 U' R2 U2 L2 U B2 U2 F2,23,true
+B' D' B2 R F' D U B' U' B' F B' L B U2 ,F R' F' y+ F R' F' y+ y+ F' D R' y+,9,true
+F2 D F D F D' B D2 R2 U B' R' B D' U2 ,F' D R' D' R' B2 D2 R2 y+ F2 U' R2 U F2 y-,19,true
+L D B U D' U2 R2 F2 R' L D' F D L' R ,R' y+ L y- D U' R2 U F2 y+ y+ F2 U' R2 U F2 y+ y+,17,true
+U2 D' U2 R' L B L2 B2 F B' U' F U' L2 D2 ,L y+ y+ L D' L y+ y+ D U L2 U B2 U R2 U F2,17,true
+B L F2 B F U B2 U D2 L' U2 B2 L' B' U' ,y+ L D' L y+ y+ L y+ D2 L2 F2 U2 B2 U R2 U F2,20,true
+F U' D R' U F' B D L2 B2 L2 B2 R' D' U' ,F' D R' y+ y+ D' L D' L y+ y+ F2 U' R2 U F2,15,true
+U R U2 F2 L B2 F L2 U R2 B' D' R' U D ,D2 F R' F' D' R2 F2 U' R2 U F2,16,true
+L' R' F2 B L' R2 B2 R L' U2 R F2 B2 U2 D2 ,D' F R' F' D2 U2 B2 U' L2 U2 R2 U F2,20,true
+B' R2 B2 U2 B' D B' L' F' L' D' F2 R B F ,y+ R' L D' L y+ F' D R' y- F2 U2 B2 U R2 U F2 y-,19,true
+B2 U' L F B U2 R F' L' U L' R U2 L B2 ,y+ y+ F R' F' y+ L D L y+ F2 U L2 U B2 U R2 U F2,20,true
+D F2 U2 D2 U' L' B' U2 D' U R U' L U' B2 ,y+ F R' F' y+ L y+ y+ F2 U2 B2 U' L2 U' F2,16,true
+D' U2 D' B L2 F L2 R D B U' L B D R' ,y+ F R' F' y+ D2 L D' L y+ y+ F2 U' R2 U F2 y+ y+ F2 U' R2 U F2 y+ y+,24,true
+U2 L' D U' B2 L U' L' D' B2 D U R' B' D ,R' L D' R' y- D' L y+ F2 U' R2 U2 L2 U B2 U2 F2,22,true
+D L U' D' U L R D L2 D F2 D' R' B' F' ,F' D R' y+ y+ D2 L y- D2 L y+ F2 U' R2 U F2 y+ y+,17,true
+L2 B' F' D L2 D U2 R L2 R' B2 R2 B2 F2 B ,y- R' D' R' y+ D L2 F2 U2 B2 U2 F2 y+ F2 U2 B2 U2 F2 y-,26,true
+D' U2 F L' D2 L B L R2 F2 U2 R U' L' R' ,y+ y+ F' D R' D2 F R' F' y+ y+ D2 B2 y+ F2 U2 B2 U R2 U F2 y-,24,true
+F' L2 R B2 L2 F' D' U L2 B' L R2 F2 U2 B' ,F' D R' y+ L y- D' B2 y+ F2 U' R2 U F2 y-,15,true
+L' R F L2 U B R' U' R2 D L D2 B' U' F' ,y+ F R' F' y+ L y+ F' D R' D L y+ F2 U L2 U B2 U2 F2,21,true
+U2 F B2 F2 R' B' F' B2 D' B R2 B2 D' B L2 ,y+ L y+ F R' F' y+ y+ B2 D' U2 B2 U R2 U F2,17,true
+U' R2 B' D2 L U R' D' R2 B D' B2 D' L D2 ,R' D' R' D' R' D2 U' R2 U2 L2 U B2 U2 F2,21,true
+B L2 R2 F' L2 F' R D' B2 U' B' U2 L F B2 ,F R' F' D' R' D' F R' F' y+ R' y- F2 U' R2 U2 L2 U' F2,22,true
+U' R U2 R B' R2 D F2 R D' L2 D2 U' L2 D ,R' D' R' y- L y+ L2 y+ F2 U2 B2 U2 F2 y-,16,true
+D' L' U R2 U2 D2 L' D' L' R2 B U' D U R2 ,L y- L y+ F2 U2 B2 U2 F2,12,true
+U2 D2 B2 R2 L' U2 D' F' B' R' U B2 D' B2 U2 ,y- F' D R' D' F R' F' D2 R' y+ F2 U2 B2 U2 F2,20,true
+U2 B' F L' D' L2 B' F' B D2 L F R' B' F2 ,R' F2 L2 F2 U' R2 U' B2 U2 F2,17,true
+B' R2 B' D2 L B' F D R' F' U2 D F' R2 F2 ,y+ y+ D' F R' F' y+ D2 L D' L y+ F2 U' R2 U F2,17,true
+B2 L' D F' L' D L D' R2 U' L F' B2 D' R' ,y+ y+ D' L F' D R' D' R' y+ y+ F2 U L2 U2 R2 U F2,19,true
+L D2 U' D2 B2 U2 R2 F' B' F' B2 R F' U2 B2 ,F' D R' y+ y+ R' D' L y+ y+ D U2 B2 U2 F2 y+ F2 U2 B2 U2 F2 y-,25,true
+U' F U' L' R' B' U F B U2 F' B2 L' B' L ,y+ R' y+ F R' F' D' R' D' F R' F' y+ y+ F2 U2 B2 U2 F2,20,true
+L F' R2 B U L' U' R B D U F2 R D L' ,y+ D' R' y+ R' y+ F R' F' y+ F2 U2 B2 U R2 U2 L2 U' F2,22,true
+F D R2 U B F' R2 D' R' B2 U2 L2 R U B ,y+ L y+ y+ F' D R' y+ D' R' y+ y+ D R' y+ y+ F2 U L2 U B2 U2 F2,20,true
+U2 R U R2 U F R F2 L R B U2 B' R' D2 ,y+ y+ D2 R' y+ D2 L y+ F2 U2 B2 U2 F2 y+ F2 U2 B2 U2 F2 y-,26,true
+L D2 U2 R' L2 D' L' U L2 U' L U' L' D' L ,D2 L U2 B2 U2 F2,11,true
+U' R' D' F2 U2 D F D F' D U B D2 U B' ,y+ F R' F' L y- D B2 y+ F2 U2 B2 U2 F2 y-,17,true
+B' U2 L R B2 L2 B' F D' L D R B' U' L2 ,F' D R' y+ R' y+ y+ D F R' F' y+ F2 U2 B2 U2 F2,18,true
+B U' R2 U L R F2 L' F2 B U2 L2 U' R' D' ,y+ y+ F' D R' D2 R' y+ y+ U L2 U2 R2 U' B2 U2 F2,20,true
+F2 L F' B' L R' L B2 R' L2 U2 L' R U2 B2 ,y+ R' y+ L D2 L y- D2 L y- F2 U2 B2 U2 F2 y+ F2 U2 B2 U2 F2 y-,28,true
+U F' B2 R2 B F B2 L2 U' R2 U2 L B L R2 ,y+ R' L D' L y+ y+ D2 F R' F' y+ F2 U L2 U B2 U R2 U F2,23,true
+D2 F R2 B' R F R U2 F2 R2 U R' U' F2 L ,y+ y+ D' R' y+ D2 L y+ D2 R2 y+ F2 U2 B2 U2 F2 y-,19,true
+B R F D L' U F2 L' D2 U B F U' B' L' ,y+ y+ L y+ R' D2 R' y+ D2 L2 F2 U' R2 U F2 y+ y+ F2 U' R2 U F2 y+ y+,25,true
+F' U2 D' F' U F2 L' D2 B2 R' F U' B L2 B' ,F R' F' y- R' y+ B2 L2 y+ y+ F2 U' R2 U F2 y+ y+,16,true
+L' B' R F2 B2 L' B' L2 B U2 L' B2 F' U B ,F' D R' y+ F R' F' y+ y+ F R' F' y+ F2 U L2 U B2 U2 F2,21,true
+D' L2 B F' B U2 R' L U2 L2 D2 B2 L F' U' ,y+ D' F R' F' y- D' B2 D U2 B2 U2 F2 y+ F2 U2 B2 U2 F2 y-,26,true
+D' R' F2 D' B2 D2 F L D R2 F R' B2 F' L' ,y+ D' F R' F' y+ F R' F' D L y+ y+ F2 U2 B2 U2 F2 y+ F2 U2 B2 U2 F2 y-,29,true
+D' B' U2 D' L' D2 B' R' U' F2 U2 B2 F' L' R2 ,F R' F' y+ L y+ y+ F' D R' y+ F2 U L2 U' F2 y+ F2 U' R2 U F2 y-,23,true
+L D2 L' R' D' U2 B2 D2 F2 L' R' L B2 D L ,y+ y+ R' D2 R' y+ y+ F2 U' R2 U2 L2 U B2 U2 F2,20,true
+U D' R' D' F D2 L' F' R2 B2 D L' U' R' B2 ,y- F' D R' y+ R' y+ F2 U2 B2 U2 F2 y-,14,true
+F B L D' B' U D' R D B L2 U' F2 U' B ,L y+ y+ L D' L y+ y+ D U L2 U B2 U R2 U F2,17,true
+B L2 B2 R F2 L' U B' F R D' B2 D' F D' ,F' D R' y+ y+ F R' F' D' F R' F' y+ D' F R' F' y+ F2 U' R2 U' B2 U2 F2,26,true
+B2 R' U' R2 F U R' B D' R U2 R2 B2 U D ,F' D R' D' R' y+ D2 L y- R2 F2 U2 B2 U R2 U F2,22,true
+L2 B' R D L R D B2 D U L' U D2 L2 B ,R' y+ L y+ y+ L y+ F2 U2 B2 U' L2 U2 R2 U F2,19,true
+F2 L' D2 F' D2 U D' R F U2 B2 F' D' F' D' ,y- D' F R' F' D2 F R' F' y+ F2 U L2 U2 R2 U F2,21,true
+F' R D' U2 L R2 D' B R B2 F2 B2 F2 R2 U ,R' y+ L y- D' R2 D2 F2,9,true
+B' D' F2 R D' U' L' U2 L' B F2 B' U2 L B' ,y+ L y+ y+ L y+ L2 F2 U2 B2 U2 F2 y+ F2 U2 B2 U2 F2 y-,24,true
+F2 U D' U' B' D2 F' B F L' B' L2 D U' B2 ,y+ y+ L D' L y+ D R' y+ F2 U L2 U2 R2 U' B2 U2 F2,21,true
+L2 D F R2 D2 F' D2 R2 D' F' L2 R2 B2 L F ,y+ y+ R' y+ L D L y+ F2 U L2 U' F2,12,true
+U R2 F U L2 U R' F2 D B' L F' L B' L' ,F' D R' y+ F R' F' y+ D' F R' F' y+ y+ F2 U' R2 U F2 y+ y+ F2 U' R2 U F2 y+ y+,26,true
+F' R' L2 R2 B' R F' B' R' D U2 L2 U L B ,R' L y- F R' F' D2 F R' F' y+ F2 U L2 U2 R2 U' B2 U2 F2,26,true
+L' D2 U' L F U2 L F' L' R2 L B2 L2 U2 D2 ,y+ F R' F' y+ D2 L y+ y+ D2 F2,10,true
+L2 R2 L B' L U' R2 D' U' F2 D' L2 D' B2 D2 ,y+ D2 F R' F' D' F R' F' F2 U' R2 U F2 y-,17,true
+F D R2 U2 B2 U' F2 U' B' D F R F2 U2 L ,y+ L y+ L y+ y+ B2 D U' R2 U' B2 U' L2 U' F2,17,true
+B U F R2 D R L' B R U' F B' D' U D2 ,R' y+ y+ D' F R' F' y+ D' F R' F' y+ F2 U L2 U' F2 y+ F2 U' R2 U F2 y-,25,true
+L' F U L' R D R2 F' L' B2 L R' L' R U ,L y+ R' y- D2 B2 L2 y+ F2 U' R2 U' B2 U2 F2 y-,20,true
+L2 R' F U' L' U2 L2 B2 R2 F R2 F2 R D L' ,D' L y+ D2 R' D' R' y- F2 U L2 U2 R2 U F2,19,true
+U' B2 D' B U B' D2 B2 U R' L' F2 R' D' B2 ,L D' R2 D U L2 U2 R2 U' B2 U2 F2,19,true
+B' U' R2 F U2 R' L2 D' F2 B L' F R F' L2 ,L y+ F' D R' y+ D2 R' y+ y+ F2 U' R2 U F2 y+ y+ F2 U' R2 U F2 y+ y+,23,true
+B' R L' R2 D' F' B' U L' R L2 D B2 R' B' ,y- F' D R' y- D2 R' y+ y+ D R2 F2 U2 B2 U' L2 U2 R2 U F2,25,true
+D' R2 D' L B F B' D F L' R U D2 U L ,y+ y+ D' L y+ y+ F2 U' R2 U' B2 U2 F2,14,true
+D' F' B F2 U' F' L2 U F L' U' F2 R' L' D' ,y+ F R' F' y+ F R' F' L y+ R' y+ F2 U' R2 U' B2 U' L2 U' F2,22,true
+F L' F2 D U2 D U' F' U' L2 R2 B L2 B' R' ,y+ F R' F' D2 R' y+ y+ D F R' F' y+ y+ F2 U' R2 U F2 y-,18,true
+B L D' U2 D' L' B D' L' F2 U2 L' R B2 F ,y+ F' D R' D' R' y+ F R' F' D L y+ y+ F2 U2 B2 U2 F2,20,true
+F' L U' B U' R' F R2 L2 R F' U L R2 U' ,L y+ L y+ F' D R' y+ y+ D' R2 y+ y+ F2 U' R2 U F2 y+ y+,16,true
+L' B R' U R2 D F2 B' U' R' U' B' U R' D2 ,F' D R' y+ R' y+ y+ F' D R' y+ R2 F2 U2 B2 U2 F2 y+ F2 U2 B2 U2 F2 y-,29,true
+D2 B2 R' B2 L2 R B2 D' U2 R2 U' B R2 L2 R' ,R' y+ y+ R' D' R' y+ y+ R2 F2 U' R2 U F2 y+ y+ F2 U' R2 U F2 y+ y+,22,true
+D F2 B' R2 U' R F2 L' R D2 U D F2 B F ,F' D R' D' R' D' R' D2 U L2 U2 R2 U' B2 U2 F2,23,true
+L F' B' U2 L B' F2 L2 B' U D' F' L D2 U' ,F' D R' y- L D' L y+ D U' R2 U' B2 U' L2 U' F2,19,true
+D2 R' L2 B R L U2 F2 L2 D' U D' U' R B ,y+ y+ L D' L F' D R' y+ y+ U2 B2 U R2 U2 L2 U' F2,20,true
+U' B' D2 R2 U' D' B2 R U R U D' R2 B' D' ,D' R' D' R' D2 F2 y+ F2 U' R2 U F2 y-,16,true
+F D2 R D B' L F' L D' L R D' R U2 R2 ,y+ F' D R' y+ R' L y+ y+ F2 U2 B2 U2 F2 y+ F2 U2 B2 U2 F2 y-,25,true
+B' U D L2 B' D' R B D L' B' U L2 B2 L' ,y+ y+ F' D R' y+ R' y+ F2 U' R2 U2 L2 U B2 U2 F2,20,true
+B2 R2 L2 F' U' R' B F' D B' L2 B' L U2 R' ,y+ F R' F' y+ D' F R' F' y+ y+ U L2 U B2 U2 F2,17,true
+U' B F L' F' L2 U R' U2 F2 U' F B' U' B' ,R' y+ y+ R' y+ R' y+ D' R2 F2 U2 B2 U R2 U2 L2 U' F2,22,true
+F' D2 F' R L2 F B' F' D' L' R B2 F2 L B' ,y+ y+ F' D R' y+ L y+ D R2 F2 U' R2 U2 L2 U B2 U2 F2,23,true
+F' B R D2 L2 F2 U2 F2 L F2 L2 R' L F' R2 ,R' y+ L D2 L y- D2 L2 y+ F2 U2 B2 U2 F2 y-,19,true
+D F2 R U' B' U F' U L D' R B F' D' R2 ,R' y+ L y+ y+ D2 F R' F' y+ F2 U' R2 U F2,15,true
+B D B U2 R' U F B L F2 R' L U D' B2 ,y+ F R' F' D' R' D2 F R' F' y- F2 U L2 U' F2 y+ F2 U' R2 U F2 y-,26,true
+U' R' U' R D2 F B' U' B' R' B' R D2 R' L ,F' D R' F' D R' D2 R' y- L y+ F2 U L2 U B2 U2 F2,22,true
+D' B2 R' U F D U B L F2 U2 L' D F' D2 ,D' L D2 B2 F2 U L2 U2 R2 U' B2 U2 F2,22,true
+B F' D L' R L F U' L2 D U R2 D2 U R ,F' D R' D' F R' F' y- F' D R' y+ D2 R' F2 U' R2 U2 L2 U B2 U2 F2,29,true
+D' U' B2 F' B L F' B' R' B' D L' B R2 U2 ,F R' F' y- R' y+ D' B2 y+ F2 U2 B2 U R2 U F2 y-,19,true
+L U' D2 U R U' L F' D' L' B' R' B2 L' R ,D' L y+ F' D R' y+ D2 R' y+ y+ F2 U L2 U B2 U R2 U F2,22,true
+
+
+19.91
