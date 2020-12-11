@@ -1,16 +1,9 @@
 package com.tuxdave.solver.core;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.time.YearMonth;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-
-import javax.swing.text.Utilities;
 
 import com.google.common.collect.HashBiMap;
 import com.tuxdave.solver.extra.MoveListener;
@@ -48,6 +41,19 @@ public class Cube {
      */
     public Cube(String path) throws IOException {
         this(new URL(path));
+    }
+
+    public Cube(Cube toClone) throws IOException, URISyntaxException {
+        this();
+        for (int i = 0; i < 6; i++) {
+            faces[i] = new Face(toClone.faces[i]);
+        }
+        orientation.put("up", "1");
+        orientation.put("front", "2");
+        orientation.put("right", "3");
+        orientation.put("up", toClone.orientation.get("up"));
+        orientation.put("front", toClone.orientation.get("front"));
+        orientation.put("right", toClone.orientation.get("right"));
     }
 
     /**
@@ -154,7 +160,7 @@ public class Cube {
      * @param dir r+/r-/u+/u-/f+/f-
      */
     public void reOrientate(String dir) {
-        if (dir.charAt(1) == '+') {
+        if (moveListener != null && dir.charAt(1) == '+') {
             moveListener.onRotate(dir);
         }
 

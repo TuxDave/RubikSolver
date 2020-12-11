@@ -2,6 +2,7 @@ package com.tuxdave.solver.logic;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 
 import com.google.common.collect.HashBiMap;
 import com.tuxdave.solver.core.Cube;
@@ -15,6 +16,7 @@ public class Solver implements MoveListener {
     private Scrambler scrambler;
     private JsonManager algorithms;
     private Algorithm moveHistory;
+    private int baseColor = -1;
 
     public HashBiMap<Integer, Character> FROM_NUMBER_TO_MOVE = HashBiMap.create();
 
@@ -50,8 +52,62 @@ public class Solver implements MoveListener {
         System.out.println("");
     }
 
-    public String getMoveHistory() {
-        return moveHistory.toString();
+    private void setBaseColor() throws IOException, URISyntaxException {
+        HashMap<Integer, Integer> moves = new HashMap<>();
+        Cube original = new Cube(core);
+        Cube pivot = new Cube(core);
+        int orientationPointer = 0;
+        String[] orienter = "r+ r+ r+ f+ f+ f+".split(" "); // white blue yellow green orange
+                                                            // -blue- red
+        int baseColorTemp;
+        do {
+            moveHistory.reset();// azzero il log delle mosse
+            core = new Cube(new Cube(pivot));// clonato il cubo per testarlo
+            core.moveListener = this;
+            baseColorTemp = core.getFaceByPosition("down").getColorInt();
+            makeDownCross(baseColorTemp);
+            // System.out
+            // .println("Color: " + baseColorTemp + " === " + moveHistory + " === " +
+            // moveHistory.getMoveLength());
+            moves.put(baseColorTemp, moveHistory.getMoveLength());
+            try {
+                pivot.reOrientate(orienter[orientationPointer]);
+            } catch (Exception e) {
+                // e.printStackTrace();
+                pivot.reOrientate(orienter[orientationPointer - 1]);
+            } // ignored out of bound
+            orientationPointer++;
+        } while (orientationPointer < 7);
+
+        moveHistory.reset();
+        core = original;
+        core.moveListener = this;
+
+        baseColorTemp = 0;
+        int min = moves.get(baseColorTemp);
+        int i = 0;
+        for (int current : moves.values()) {
+            if (current < min) {
+                min = current;
+                baseColorTemp = i;
+            }
+            i++;
+        }
+        this.baseColor = baseColorTemp;// assegnato
+        // orientate the original cube
+        // baseColorTemp--;
+        orienter = "r+ r+ r+ f+ f+".split(" "); // white blue yellow green orange -blue- red
+        for (i = 0; i < baseColorTemp; i++) {
+            core.reOrientate(orienter[i]);
+            if (i == 4) {
+                core.reOrientate(orienter[i]);
+            }
+
+        }
+    }
+
+    public Algorithm getMoveHistory() {
+        return moveHistory;
     }
 
     public JsonManager getAlgorithms() {
@@ -142,39 +198,43 @@ public class Solver implements MoveListener {
         }
     }
 
-    private String makeWhiteCross() {
-        // reset the history
-        moveHistory.reset();
+    private void makeDownCross() {
+        makeDownCross(this.baseColor);
+    }
 
-        String ret = "";
-        Face whiteFace = core.getFaceByPosition("down");
+    /**
+     * @param localBaseColor the base color
+     * @return
+     */
+    private void makeDownCross(int localBaseColor) {
+        Face downFace = core.getFaceByPosition("down");
         for (int z = 0; z < 3; z++)
             for (int i = 0; i < 4; i++) {// for the vertical faces
 
                 for (int j = 0; j < 4; j++) {
                     // when white is in the south spot (6)
-                    if (core.getFaceByPosition("front").getSpot(6) == Face.fromColorToInt("white")) {
+                    if (core.getFaceByPosition("front").getSpot(6) == localBaseColor) {
                         core.move('f', false);
                         core.move('d', true);
                         core.move('r', false);
                     }
                     // when white is in the north spot (2)
-                    if (core.getFaceByPosition("front").getSpot(2) == Face.fromColorToInt("white")) {
-                        while (whiteFace.getSpot(4) == Face.fromColorToInt("white")) {
+                    if (core.getFaceByPosition("front").getSpot(2) == localBaseColor) {
+                        while (downFace.getSpot(4) == localBaseColor) {
                             core.move('d', false);
                         }
                         runAlgorithm(new Algorithm("F R' F'"));
                     }
                     // when white is in the easth spot (4)
-                    if (core.getFaceByPosition("front").getSpot(4) == Face.fromColorToInt("white")) {
-                        while (whiteFace.getSpot(4) == Face.fromColorToInt("white")) {
+                    if (core.getFaceByPosition("front").getSpot(4) == localBaseColor) {
+                        while (downFace.getSpot(4) == localBaseColor) {
                             core.move('d', false);
                         }
                         core.move('r', false);
                     }
                     // when white is in the west spot (8)
-                    if (core.getFaceByPosition("front").getSpot(8) == Face.fromColorToInt("white")) {
-                        while (whiteFace.getSpot(8) == Face.fromColorToInt("white")) {
+                    if (core.getFaceByPosition("front").getSpot(8) == localBaseColor) {
+                        while (downFace.getSpot(8) == localBaseColor) {
                             core.move('d', false);
                         }
                         core.move('l', true);
@@ -186,8 +246,8 @@ public class Solver implements MoveListener {
         // for the yellow face
         int add = 4;
         for (int i = 2; i < 9; i += 2) {
-            if (core.getFaceByPosition("up").getSpot(i) == Face.fromColorToInt("white")) {
-                while (whiteFace.getSpot((i % 4 == 0 ? i : i + add)) == Face.fromColorToInt("white")) {
+            if (core.getFaceByPosition("up").getSpot(i) == localBaseColor) {
+                while (downFace.getSpot((i % 4 == 0 ? i : i + add)) == localBaseColor) {
                     core.move('d', false);
                 }
                 switch (i) {
@@ -222,7 +282,7 @@ public class Solver implements MoveListener {
 
                 int pos = 2;
                 int spot = up.getSpot(fromUpToClosest.inverse().get(fromUpToClosest.values().toArray()[pos]));
-                while (spot == 0) {
+                while (spot == localBaseColor) {
                     {
                         Face face = null;
                         int color = -1;
@@ -241,15 +301,16 @@ public class Solver implements MoveListener {
 
             core.reOrientate("u+");
         }
-        return ret;
     }
 
     private void makeWhiteFace() {
-        makeWhiteCross();// creates the white cross first of all
+        makeDownCross(core.getFaceByPosition("down").getColorInt());// creates the white cross first
+        // of all
 
     }
 
-    public String solve() {
+    public String solve() throws IOException, URISyntaxException {
+        setBaseColor();
         makeWhiteFace();
         return "";
     }
