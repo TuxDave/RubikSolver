@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.HashMap;
 
 import com.google.common.collect.HashBiMap;
-import com.google.thirdparty.publicsuffix.PublicSuffixType;
 import com.tuxdave.solver.extra.Color;
 import com.tuxdave.solver.extra.MoveListener;
 import com.tuxdave.solver.extra.Position;
@@ -352,13 +350,13 @@ public class Cube {
     /**
      * Method to move the cube's sides (the rotation is 180°, like r2)
      * 
-     * @param _move defines the cube notation (r, l, u, d, f, b)
+     * @param string defines the cube notation (r, l, u, d, f, b)
      * 
      * @author TuxDave Kawa-git
      */
-    public void move(char _move) {
-        move(_move, true);
-        move(_move, true);
+    public void move(char string) {
+        move(string, true);
+        move(string, true);
     }
 
     private static int[] reverse(int[] ar) {

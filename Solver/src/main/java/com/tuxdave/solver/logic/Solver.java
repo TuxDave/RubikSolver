@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 
+import javax.print.attribute.standard.DialogOwner;
+import javax.swing.AbstractCellEditor;
+
 import com.google.common.collect.HashBiMap;
 import com.tuxdave.solver.core.Cube;
 import com.tuxdave.solver.core.Face;
@@ -18,6 +21,23 @@ public class Solver implements MoveListener {
     private JsonManager algorithms;
     private Algorithm moveHistory;
     private int baseColor = -1;
+
+    // about myself as moveListener in other obj...
+    private boolean active = true;
+
+    /**
+     * turn down the logger
+     */
+    public void turnOnLogger() {
+        active = true;
+    }
+
+    /**
+     * turn on the logger
+     */
+    public void turnOffLogger() {
+        active = false;
+    }
 
     public HashBiMap<Integer, Character> FROM_NUMBER_TO_MOVE = HashBiMap.create();
 
@@ -306,6 +326,55 @@ public class Solver implements MoveListener {
 
     private void makeDownFace() {
         makeDownCross(core.getFaceByPosition(Position.DOWN).getColorInt());
+        System.out.println(core);
+        System.out.println("=========================");
+
+        // found the baseColor piece in the right column if exist
+        final int checkPointFront[] = { 3, 5 };
+        final int checkPointRight[] = { 1, 7 };
+        final int checkPointDown = 3;
+        final int checkPointUp = 5;
+
+        /*
+         * for (int j = 0; j < 4; j++) { Face rightFace =
+         * core.getFaceByPosition(Position.RIGHT); Face frontFace =
+         * core.getFaceByPosition(Position.FRONT); Face topFace =
+         * core.getFaceByPosition(Position.UP); Face downFace =
+         * core.getFaceByPosition(Position.DOWN);
+         * 
+         * if (frontFace.getSpot(checkPointFront[0]) == baseColor ||
+         * frontFace.getSpot(checkPointFront[1]) == baseColor ||
+         * rightFace.getSpot(checkPointFront[0]) == baseColor ||
+         * rightFace.getSpot(checkPointFront[1]) == baseColor ||
+         * topFace.getSpot(checkPointUp) == baseColor) { // se c'è un pezzo nell'intera
+         * colonna
+         * 
+         * if (frontFace.getSpot(5) == frontFace.getColorInt() && rightFace.getSpot(7)
+         * == rightFace.getColorInt() && downFace.getSpot(5) == baseColor) {// se il
+         * pezzo sotto è giusto if (frontFace.getSpot(checkPointFront[0]) == baseColor
+         * || rightFace.getSpot(checkPointFront[0]) == baseColor ||
+         * topFace.getSpot(checkPointUp) == baseColor) {// se sopra ce n'è un altro
+         * core.move('u', false); core.reOrientate("u+"); } } else { // c'è sicuramente
+         * un pezzo bianco nella colonna turnOffLogger(); int counter = 0;
+         * 
+         * while (downFace.getSpot(checkPointDown) != baseColor) {
+         * runAlgorithm("sexyMove"); counter++; // quando si ferma è perchè il pezzo
+         * bianco è nel punto giusto } // controllare se è QUELLO giusto if
+         * (frontFace.getSpot(checkPointFront[1]) == frontFace.getColorInt() &&
+         * rightFace.getSpot(checkPointRight[1]) == rightFace.getColorInt()) { // se è
+         * il pezzo giusto for (int i = counter; i < 6; i++) {// finiamo le 6 sexyMove
+         * runAlgorithm("sexyMove"); } turnOnLogger(); for (int i = 0; i < counter; i++)
+         * { runAlgorithm("sexyMove"); } if (frontFace.getSpot(checkPointFront[0]) ==
+         * baseColor || rightFace.getSpot(checkPointRight[0]) == baseColor) { // se dopo
+         * aver messo quello giusto sopra ce n'è un altro core.move('u', false); }
+         * core.reOrientate("u+"); } else { for (int i = counter; i < 6; i++) {//
+         * finiamo le 6 sexyMove runAlgorithm("sexyMove"); } turnOnLogger(); if
+         * (frontFace.getSpot(checkPointFront[0]) == baseColor ||
+         * rightFace.getSpot(checkPointRight[0]) == baseColor ||
+         * topFace.getSpot(checkPointUp) == baseColor) { // se lo abbiamo trovato sopra
+         * core.move('u', false); } else { runAlgorithm("flSwitch"); }
+         * core.reOrientate("u+"); } } } else { core.reOrientate("u+"); } }
+         */
 
     }
 
@@ -317,20 +386,22 @@ public class Solver implements MoveListener {
 
     @Override
     public void onMove(char m, boolean cw) {
-        moveHistory.add(Character.toString(Character.toUpperCase(m)) + (cw ? "" : "'"));
+        if (active)
+            moveHistory.add(Character.toString(Character.toUpperCase(m)) + (cw ? "" : "'"));
     }
 
+    /*
+     * r = x u = y f = z
+     */
     @Override
     public void onRotate(String _dir) {
-        /*
-         * r = x u = y f = z
-         */
-        if (_dir.charAt(0) == 'r') {
-            moveHistory.add(Character.toString('x') + _dir.charAt(1));
-        } else if (_dir.charAt(0) == 'u') {
-            moveHistory.add(Character.toString('y') + _dir.charAt(1));
-        } else {
-            moveHistory.add(Character.toString('z') + _dir.charAt(1));
-        }
+        if (active)
+            if (_dir.charAt(0) == 'r') {
+                moveHistory.add(Character.toString('x') + _dir.charAt(1));
+            } else if (_dir.charAt(0) == 'u') {
+                moveHistory.add(Character.toString('y') + _dir.charAt(1));
+            } else {
+                moveHistory.add(Character.toString('z') + _dir.charAt(1));
+            }
     }
 }

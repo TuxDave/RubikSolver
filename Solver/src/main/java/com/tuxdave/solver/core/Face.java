@@ -1,6 +1,8 @@
 package com.tuxdave.solver.core;
 
 import com.google.common.collect.HashBiMap;
+import com.tuxdave.solver.extra.Color;
+
 import java.util.Arrays;
 
 public class Face {
@@ -174,6 +176,13 @@ public class Face {
             throw new ArrayIndexOutOfBoundsException("Index must be between 0 and 8 included!");
         }
         return body[_pos];
+    }
+
+    public Color getSpotColor(int _pos) {
+        if (_pos < 0 || _pos > 8) {
+            throw new ArrayIndexOutOfBoundsException("Index must be between 0 and 8 included!");
+        }
+        return Color.getColorByNumber(body[_pos]);
     }
 
     /**
