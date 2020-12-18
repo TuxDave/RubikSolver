@@ -4,9 +4,13 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import com.google.common.collect.HashBiMap;
+import com.google.thirdparty.publicsuffix.PublicSuffixType;
+import com.tuxdave.solver.extra.Color;
 import com.tuxdave.solver.extra.MoveListener;
+import com.tuxdave.solver.extra.Position;
 import com.tuxdave.solver.extra.Utils;
 
 public class Cube {
@@ -117,6 +121,14 @@ public class Cube {
             }
         }
         throw new IllegalArgumentException("Color \"" + color + "\" not found");
+    }
+
+    public Face getFaceByPosition(Position pos) {
+        return getFaceByPosition(pos.getValue());
+    }
+
+    public Face getFaceByColor(Color c) {
+        return getFaceByColor(c.getValue());
     }
 
     /**

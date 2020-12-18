@@ -9,6 +9,7 @@ import com.tuxdave.solver.core.Cube;
 import com.tuxdave.solver.core.Face;
 import com.tuxdave.solver.extra.JsonManager;
 import com.tuxdave.solver.extra.MoveListener;
+import com.tuxdave.solver.extra.Position;
 import com.tuxdave.solver.extra.ValueNotInRangeException;
 
 public class Solver implements MoveListener {
@@ -303,15 +304,14 @@ public class Solver implements MoveListener {
         }
     }
 
-    private void makeWhiteFace() {
-        makeDownCross(core.getFaceByPosition("down").getColorInt());// creates the white cross first
-        // of all
+    private void makeDownFace() {
+        makeDownCross(core.getFaceByPosition(Position.DOWN).getColorInt());
 
     }
 
     public String solve() throws IOException, URISyntaxException {
         setBaseColor();
-        makeWhiteFace();
+        makeDownFace();
         return "";
     }
 

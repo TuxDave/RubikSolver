@@ -98,7 +98,7 @@ public class Face {
     }
 
     /**
-     * get the color position
+     * get the colors of the selected border
      * 
      * @param _border u/d/r/l
      * @return provides an array with the column from below to top and from left to
