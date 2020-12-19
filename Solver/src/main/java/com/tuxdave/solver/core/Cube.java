@@ -11,6 +11,8 @@ import com.tuxdave.solver.extra.MoveListener;
 import com.tuxdave.solver.extra.Position;
 import com.tuxdave.solver.extra.Utils;
 
+import org.checkerframework.checker.units.qual.Length;
+
 public class Cube {
     private Face[] faces;
 
@@ -73,6 +75,8 @@ public class Cube {
      * @throws IOException if the file not exists
      */
     public Cube(URL file) throws IOException {
+
+        this(cube);
         int[] cube = new int[54];
         {// reads the cube from file
             String[] stringFile = Utils.fromFileToString(file).split("\n");
@@ -80,19 +84,23 @@ public class Cube {
                 cube[i] = Integer.parseInt(stringFile[i]);
             }
         }
-        {// creates the faces
-            faces = new Face[6];
-            int n = 0, start = 0;
-            do {
-                faces[n++] = new Face(Arrays.copyOfRange(cube, start, start + 9));
-                start += 9;
-                // System.out.println(faces[n-1]);
-            } while (n != 6);
+
+    }
+
+    public Cube(int[] cube) {
+        if (cube.length != 54) {
+            throw new IllegalArgumentException("The cube array must be a 54 length array");
         }
-        {// setting the orientation
-            setBaseOrientation();
-        }
-        // getFaceByColor("white").rotate();
+        // creates the faces
+        faces = new Face[6];
+        int n = 0, start = 0;
+        do {
+            faces[n++] = new Face(Arrays.copyOfRange(cube, start, start + 9));
+            start += 9;
+            // System.out.println(faces[n-1]);
+        } while (n != 6);
+        // setting the orientation
+        setBaseOrientation();
     }
 
     /**

@@ -87,9 +87,6 @@ public class Solver implements MoveListener {
             core.moveListener = this;
             baseColorTemp = core.getFaceByPosition("down").getColorInt();
             makeDownCross(baseColorTemp);
-            // System.out
-            // .println("Color: " + baseColorTemp + " === " + moveHistory + " === " +
-            // moveHistory.getMoveLength());
             moves.put(baseColorTemp, moveHistory.getMoveLength());
             try {
                 pivot.reOrientate(orienter[orientationPointer]);
@@ -326,8 +323,6 @@ public class Solver implements MoveListener {
 
     private void makeDownFace() {
         makeDownCross(core.getFaceByPosition(Position.DOWN).getColorInt());
-        System.out.println(core);
-        System.out.println("=========================");
 
         // found the baseColor piece in the right column if exist
         final int checkPointFront[] = { 3, 5 };
