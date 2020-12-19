@@ -321,6 +321,22 @@ public class Solver implements MoveListener {
         }
     }
 
+    /**
+     * always related the 5 spot of the front face
+     * 
+     * @return true if is in the correct position
+     */
+    public boolean is5InTheCorrectPosition() {
+        Face rightFace = core.getFaceByPosition(Position.RIGHT);
+        Face frontFace = core.getFaceByPosition(Position.FRONT);
+        Face downFace = core.getFaceByPosition(Position.DOWN);
+        if (frontFace.getSpot(5) == frontFace.getColorInt() && downFace.getSpot(3) == baseColor
+                && rightFace.getSpot(7) == rightFace.getColorInt()) {
+            return true;
+        }
+        return false;
+    }
+
     private void makeDownFace() {
         makeDownCross(core.getFaceByPosition(Position.DOWN).getColorInt());
 
@@ -342,25 +358,28 @@ public class Solver implements MoveListener {
             // prendo tutte le faccie interessate tutte le volte
             rightFace = core.getFaceByPosition(Position.RIGHT);
             frontFace = core.getFaceByPosition(Position.FRONT);
-            upFace = core.getFaceByPosition(Position.UP);
             downFace = core.getFaceByPosition(Position.DOWN);
+            upFace = core.getFaceByPosition(Position.UP);
 
             // spostare tutti i baseColor in cima (layer up)
             if (frontFace.getSpot(checkPointFront[1]) == baseColor || rightFace.getSpot(checkPointRight[1]) == baseColor
                     || downFace.getSpot(checkPointDown) == baseColor) {
-                // TODO: fare in modo che se il pezzetto è gia quello giusto nella posizione
-                // giusta saltare il metterlo in cima
-                while (frontFace.getSpot(checkPointFront[0]) == baseColor
-                        || rightFace.getSpot(checkPointRight[0]) == baseColor
-                        || upFace.getSpot(checkPointUp) == baseColor) {
-                    // se sopra c'è un pezzo bianco faccio u per trovare uno spazio vuoto
-                    core.move('u', true);
+                if (!is5InTheCorrectPosition()) {
+                    while (frontFace.getSpot(checkPointFront[0]) == baseColor
+                            || rightFace.getSpot(checkPointRight[0]) == baseColor
+                            || upFace.getSpot(checkPointUp) == baseColor) {
+                        // se sopra c'è un pezzo bianco faccio u per trovare uno spazio vuoto
+                        core.move('u', true);
+                    }
+                    runAlgorithm("sexyMove");
                 }
-                runAlgorithm("sexyMove");
             }
             core.reOrientate("u+");
         }
         // assegnazione colori richiesti e presenti
+        for (int i = 0; i < 4; i++) {
+
+        }
 
         /*
          * for (int j = 0; j < 4; j++) { Face rightFace =

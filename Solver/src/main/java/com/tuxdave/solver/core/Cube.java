@@ -41,9 +41,10 @@ public class Cube {
 
     /**
      * @param path location of the cube source file
-     * @throws IOException if the file not exists
+     * @throws IOException        if the file not exists
+     * @throws URISyntaxException
      */
-    public Cube(String path) throws IOException {
+    public Cube(String path) throws IOException, URISyntaxException {
         this(new URL(path));
     }
 
@@ -72,11 +73,10 @@ public class Cube {
 
     /**
      * @param file a FileReader opening the cube source file
-     * @throws IOException if the file not exists
+     * @throws IOException        if the file not exists
+     * @throws URISyntaxException
      */
-    public Cube(URL file) throws IOException {
-
-        this(cube);
+    public Cube(URL file) throws IOException, URISyntaxException {
         int[] cube = new int[54];
         {// reads the cube from file
             String[] stringFile = Utils.fromFileToString(file).split("\n");
@@ -84,7 +84,16 @@ public class Cube {
                 cube[i] = Integer.parseInt(stringFile[i]);
             }
         }
-
+        // creates the faces
+        faces = new Face[6];
+        int n = 0, start = 0;
+        do {
+            faces[n++] = new Face(Arrays.copyOfRange(cube, start, start + 9));
+            start += 9;
+            // System.out.println(faces[n-1]);
+        } while (n != 6);
+        // setting the orientation
+        setBaseOrientation();
     }
 
     public Cube(int[] cube) {
