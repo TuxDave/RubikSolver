@@ -335,6 +335,38 @@ public class Solver implements MoveListener {
         final int checkPointDown = 3;
         final int checkPointUp = 5;
 
+        Face rightFace;
+        Face frontFace;
+        Face upFace;
+        Face downFace;
+
+        int[] current = new int[3];
+        int[] expected = new int[3];
+
+        for (int i = 0; i < 4; i++) {
+            // prendo tutte le faccie interessate tutte le volte
+            rightFace = core.getFaceByPosition(Position.RIGHT);
+            frontFace = core.getFaceByPosition(Position.FRONT);
+            upFace = core.getFaceByPosition(Position.UP);
+            downFace = core.getFaceByPosition(Position.DOWN);
+
+            // spostare tutti i baseColor in cima (layer up)
+            if (frontFace.getSpot(checkPointFront[1]) == baseColor || rightFace.getSpot(checkPointRight[1]) == baseColor
+                    || downFace.getSpot(checkPointDown) == baseColor) {
+                // TODO: fare in modo che se il pezzetto è gia quello giusto nella posizione
+                // giusta saltare il metterlo in cima
+                while (frontFace.getSpot(checkPointFront[0]) == baseColor
+                        || rightFace.getSpot(checkPointRight[0]) == baseColor
+                        || upFace.getSpot(checkPointUp) == baseColor) {
+                    // se sopra c'è un pezzo bianco faccio u per trovare uno spazio vuoto
+                    core.move('u', true);
+                }
+                runAlgorithm("sexyMove");
+            }
+            core.reOrientate("u+");
+        }
+        // assegnazione colori richiesti e presenti
+
         /*
          * for (int j = 0; j < 4; j++) { Face rightFace =
          * core.getFaceByPosition(Position.RIGHT); Face frontFace =
