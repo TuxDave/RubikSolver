@@ -2,6 +2,7 @@ package com.tuxdave.solver.logic;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.print.attribute.standard.DialogOwner;
@@ -351,9 +352,6 @@ public class Solver implements MoveListener {
         Face upFace;
         Face downFace;
 
-        int[] current = new int[3];
-        int[] expected = new int[3];
-
         for (int i = 0; i < 4; i++) {
             // prendo tutte le faccie interessate tutte le volte
             rightFace = core.getFaceByPosition(Position.RIGHT);
@@ -376,9 +374,56 @@ public class Solver implements MoveListener {
             }
             core.reOrientate("u+");
         }
-        // assegnazione colori richiesti e presenti
-        for (int i = 0; i < 4; i++) {
 
+        // assegnazione colori richiesti e presenti
+        int[] current = new int[3];// the fact color on 3 spot of front and the adiacent
+        int[] expected = new int[3];// the expected color in 5 spot of front and the adiacent
+        for (int i = 0; i < 4; i++) {
+            rightFace = core.getFaceByPosition(Position.RIGHT);
+            frontFace = core.getFaceByPosition(Position.FRONT);
+            downFace = core.getFaceByPosition(Position.DOWN);
+            upFace = core.getFaceByPosition(Position.UP);
+
+            while (frontFace.getSpot(checkPointFront[1]) != frontFace.getColorInt()
+                    || rightFace.getSpot(checkPointRight[1]) != rightFace.getColorInt()
+                    || downFace.getSpot(checkPointDown) != baseColor) {
+                expected[0] = frontFace.getColorInt();
+                expected[1] = rightFace.getColorInt();
+                expected[2] = downFace.getColorInt();
+                current[0] = frontFace.getSpot(checkPointFront[0]);
+                current[1] = upFace.getSpot(checkPointUp);
+                current[2] = rightFace.getSpot(checkPointRight[0]);
+                Arrays.sort(expected);
+                Arrays.sort(current);
+
+                if (expected[0] == current[0] && expected[1] == current[1] && expected[2] == current[2]) {
+                    int counter = 0;
+                    turnOffLogger();
+                    while (!is5InTheCorrectPosition()) {
+                        counter++;
+                        runAlgorithm("sexyMove");
+                    }
+                    for (int k = counter; k < 6; k++) {
+                        runAlgorithm("sexyMove");
+                    }
+                    turnOnLogger();
+                    boolean anti = false;
+                    if (counter > 6 - counter) {
+                        counter = 6 - counter;
+                        anti = true;
+                    }
+                    for (int k = 0; k < counter; k++) {
+                        if (anti) {
+                            runAlgorithm("antiSexyMove");
+                        } else {
+                            runAlgorithm("sexyMove");
+                        }
+                    }
+                } else {
+                    core.move('u', true);
+                }
+            }
+            core.reOrientate("u+");
         }
 
         /*

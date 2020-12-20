@@ -15,17 +15,27 @@ public class Test1 {
                 new File("/home/tuxdave/Documenti/MyProjects/RubikSolver/Solver/examples/dopoColorNeutral.csv"));
         String scramble;
         double avarageMoves = 0;
-        int tries = 5000;
+        int tries = 10000;
         boolean ok = false;
-        Face f;
+        Face down;
+        Face front;
+        Face back;
         for (int i = 0; i < tries; i++) {
             scramble = solver.scramble(15);
             solver.solve();
 
-            f = solver.getCoreCube().getFaceByPosition("down");
-            int color = f.getColorInt();
-            ok = f.getSpot(0) == color && f.getSpot(2) == color && f.getSpot(4) == color && f.getSpot(6) == color
-                    && f.getSpot(8) == color;
+            down = solver.getCoreCube().getFaceByPosition("down");
+            front = solver.getCoreCube().getFaceByPosition("front");
+            back = solver.getCoreCube().getFaceByPosition("back");
+            int colorDown = down.getColorInt();
+            int colorFront = front.getColorInt();
+            int colorBack = back.getColorInt();
+            ok = down.getSpot(0) == colorDown && down.getSpot(2) == colorDown && down.getSpot(4) == colorDown
+                    && down.getSpot(6) == colorDown && down.getSpot(8) == colorDown && down.getSpot(1) == colorDown
+                    && down.getSpot(3) == colorDown && down.getSpot(5) == colorDown && down.getSpot(7) == colorDown
+                    && front.getSpot(5) == colorFront && front.getSpot(6) == colorFront
+                    && front.getSpot(7) == colorFront && back.getSpot(5) == colorBack && back.getSpot(7) == colorBack
+                    && back.getSpot(6) == colorBack;
             r.write(scramble + "," + solver.getMoveHistory() + "," + solver.getMoveHistory().getMoveLength() + "," + ok
                     + "\n");
             avarageMoves += solver.getMoveHistory().getMoveLength();
