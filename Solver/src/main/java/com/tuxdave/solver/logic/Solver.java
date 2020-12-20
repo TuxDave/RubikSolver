@@ -384,9 +384,7 @@ public class Solver implements MoveListener {
             downFace = core.getFaceByPosition(Position.DOWN);
             upFace = core.getFaceByPosition(Position.UP);
 
-            while (frontFace.getSpot(checkPointFront[1]) != frontFace.getColorInt()
-                    || rightFace.getSpot(checkPointRight[1]) != rightFace.getColorInt()
-                    || downFace.getSpot(checkPointDown) != baseColor) {
+            while (!is5InTheCorrectPosition()) {
                 expected[0] = frontFace.getColorInt();
                 expected[1] = rightFace.getColorInt();
                 expected[2] = downFace.getColorInt();

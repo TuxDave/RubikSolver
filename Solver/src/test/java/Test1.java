@@ -12,7 +12,7 @@ public class Test1 {
     public static void main(String[] args) throws IOException, URISyntaxException, ValueNotInRangeException {
         Solver solver = new Solver(new Cube());
         FileWriter r = new FileWriter(
-                new File("/home/tuxdave/Documenti/MyProjects/RubikSolver/Solver/examples/dopoColorNeutral.csv"));
+                new File("/home/tuxdave/Documenti/MyProjects/RubikSolver/Solver/examples/test1000.csv"));
         String scramble;
         double avarageMoves = 0;
         int tries = 10000;
