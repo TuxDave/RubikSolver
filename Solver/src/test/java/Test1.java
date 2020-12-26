@@ -12,7 +12,7 @@ public class Test1 {
     public static void main(String[] args) throws IOException, URISyntaxException, ValueNotInRangeException {
         Solver solver = new Solver(new Cube());
         FileWriter r = new FileWriter(
-                new File("/home/tuxdave/Documenti/MyProjects/RubikSolver/Solver/examples/test1000.csv"));
+                new File("/home/tuxdave/Documenti/MyProjects/RubikSolver/RubiksRecognition/notTracked/test10000.csv"));
         String scramble;
         double avarageMoves = 0;
         int tries = 10000;
@@ -20,6 +20,7 @@ public class Test1 {
         Face down;
         Face front;
         Face back;
+        Face right;
         for (int i = 0; i < tries; i++) {
             scramble = solver.scramble(15);
             solver.solve();
@@ -27,6 +28,7 @@ public class Test1 {
             down = solver.getCoreCube().getFaceByPosition("down");
             front = solver.getCoreCube().getFaceByPosition("front");
             back = solver.getCoreCube().getFaceByPosition("back");
+            right = solver.getCoreCube().getFaceByPosition("right");
             int colorDown = down.getColorInt();
             int colorFront = front.getColorInt();
             int colorBack = back.getColorInt();
@@ -35,7 +37,9 @@ public class Test1 {
                     && down.getSpot(3) == colorDown && down.getSpot(5) == colorDown && down.getSpot(7) == colorDown
                     && front.getSpot(5) == colorFront && front.getSpot(6) == colorFront
                     && front.getSpot(7) == colorFront && back.getSpot(5) == colorBack && back.getSpot(7) == colorBack
-                    && back.getSpot(6) == colorBack;
+                    && back.getSpot(6) == colorBack && front.getSpot(8) == colorFront && front.getSpot(4) == colorFront
+                    && back.getSpot(8) == colorBack && back.getSpot(4) == colorBack
+                    && right.getSpot(8) == right.getColorInt() && right.getSpot(4) == right.getColorInt();
             r.write(scramble + "," + solver.getMoveHistory() + "," + solver.getMoveHistory().getMoveLength() + "," + ok
                     + "\n");
             avarageMoves += solver.getMoveHistory().getMoveLength();

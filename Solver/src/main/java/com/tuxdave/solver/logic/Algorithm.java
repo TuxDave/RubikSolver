@@ -65,21 +65,24 @@ public class Algorithm implements Iterable<String> {
     }
 
     /**
-     * similar tu size() but not includes the xyz as moves
+     * similar to size() but not includes the xyz as moves
      * 
      * @return the move number
      */
     public int getMoveLength() {
+        shorten();
         int moves = 0;
-        String[] s = new String[size()];
-        s = sequence.toArray(s);
         String solve = "";
-        for (String temp : s) {
+        for (String temp : sequence) {
             if (temp.charAt(0) != 'y' && temp.charAt(0) != 'x' && temp.charAt(0) != 'z') {
                 solve += temp + " ";
             }
         }
-        solve = solve.substring(0, solve.length() - 1);
+        try {
+            solve = solve.substring(0, solve.length() - 1);
+        } catch (StringIndexOutOfBoundsException ignored) {
+            return 0;
+        }
         for (String move : solve.split(" ")) {
             if (move.length() == 1) {
                 moves++;

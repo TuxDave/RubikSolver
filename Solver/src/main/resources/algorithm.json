@@ -2,6 +2,8 @@
     "sexyMove": "R U R' U'",
     "antiSexyMove": "U R U' R'",
     "flSwitch": "F' U' F",
+    "slR": "U R U' R' U' F' U F",
+    "slL": "U' L' U L U F U' F'",
     "sledgeHammerL": "R U R' U'",
     "sledgeHammerR": "R' F R F'"
 }

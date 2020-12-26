@@ -8,8 +8,8 @@ import com.tuxdave.solver.logic.Solver;
 public class Test2 {
     public static void main(String[] args) throws IOException, URISyntaxException, ValueNotInRangeException {
         Solver s = new Solver(new Cube());
-        // System.out.println(s.scramble(10));
-        s.scramble("L' U2 L' U' L D2 R U R F2");
+        // System.out.println(s.scramble(15));
+        s.scramble("D2 B D' R2 L2 R' L' R' B R B' R' B' D' U2");
         s.solve();
         System.out.println(s.getCoreCube());
         System.out.println(s.getMoveHistory());

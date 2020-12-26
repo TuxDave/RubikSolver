@@ -5,9 +5,6 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import javax.print.attribute.standard.DialogOwner;
-import javax.swing.AbstractCellEditor;
-
 import com.google.common.collect.HashBiMap;
 import com.tuxdave.solver.core.Cube;
 import com.tuxdave.solver.core.Face;
@@ -101,7 +98,6 @@ public class Solver implements MoveListener {
         moveHistory.reset();
         core = original;
         core.moveListener = this;
-
         baseColorTemp = 0;
         int min = moves.get(baseColorTemp);
         int i = 0;
@@ -217,6 +213,31 @@ public class Solver implements MoveListener {
         }
     }
 
+    private boolean is4InTheCorrectPosition() {
+        Face rightFace = core.getFaceByPosition(Position.RIGHT);
+        Face frontFace = core.getFaceByPosition(Position.FRONT);
+        if (frontFace.getSpot(4) == frontFace.getColorInt() && rightFace.getSpot(8) == rightFace.getColorInt()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * always related the 5 spot of the front face
+     * 
+     * @return true if is in the correct position
+     */
+    private boolean is5InTheCorrectPosition() {
+        Face rightFace = core.getFaceByPosition(Position.RIGHT);
+        Face frontFace = core.getFaceByPosition(Position.FRONT);
+        Face downFace = core.getFaceByPosition(Position.DOWN);
+        if (frontFace.getSpot(5) == frontFace.getColorInt() && downFace.getSpot(3) == baseColor
+                && rightFace.getSpot(7) == rightFace.getColorInt()) {
+            return true;
+        }
+        return false;
+    }
+
     private void makeDownCross() {
         makeDownCross(this.baseColor);
     }
@@ -259,7 +280,6 @@ public class Solver implements MoveListener {
                         core.move('l', true);
                     }
                 }
-
                 core.reOrientate("u+");
             }
         // for the yellow face
@@ -322,24 +342,8 @@ public class Solver implements MoveListener {
         }
     }
 
-    /**
-     * always related the 5 spot of the front face
-     * 
-     * @return true if is in the correct position
-     */
-    public boolean is5InTheCorrectPosition() {
-        Face rightFace = core.getFaceByPosition(Position.RIGHT);
-        Face frontFace = core.getFaceByPosition(Position.FRONT);
-        Face downFace = core.getFaceByPosition(Position.DOWN);
-        if (frontFace.getSpot(5) == frontFace.getColorInt() && downFace.getSpot(3) == baseColor
-                && rightFace.getSpot(7) == rightFace.getColorInt()) {
-            return true;
-        }
-        return false;
-    }
-
     private void makeDownFace() {
-        makeDownCross(core.getFaceByPosition(Position.DOWN).getColorInt());
+        makeDownCross();
 
         // found the baseColor piece in the right column if exist
         final int checkPointFront[] = { 3, 5 };
@@ -423,55 +427,78 @@ public class Solver implements MoveListener {
             }
             core.reOrientate("u+");
         }
+    }
 
-        /*
-         * for (int j = 0; j < 4; j++) { Face rightFace =
-         * core.getFaceByPosition(Position.RIGHT); Face frontFace =
-         * core.getFaceByPosition(Position.FRONT); Face topFace =
-         * core.getFaceByPosition(Position.UP); Face downFace =
-         * core.getFaceByPosition(Position.DOWN);
-         * 
-         * if (frontFace.getSpot(checkPointFront[0]) == baseColor ||
-         * frontFace.getSpot(checkPointFront[1]) == baseColor ||
-         * rightFace.getSpot(checkPointFront[0]) == baseColor ||
-         * rightFace.getSpot(checkPointFront[1]) == baseColor ||
-         * topFace.getSpot(checkPointUp) == baseColor) { // se c'è un pezzo nell'intera
-         * colonna
-         * 
-         * if (frontFace.getSpot(5) == frontFace.getColorInt() && rightFace.getSpot(7)
-         * == rightFace.getColorInt() && downFace.getSpot(5) == baseColor) {// se il
-         * pezzo sotto è giusto if (frontFace.getSpot(checkPointFront[0]) == baseColor
-         * || rightFace.getSpot(checkPointFront[0]) == baseColor ||
-         * topFace.getSpot(checkPointUp) == baseColor) {// se sopra ce n'è un altro
-         * core.move('u', false); core.reOrientate("u+"); } } else { // c'è sicuramente
-         * un pezzo bianco nella colonna turnOffLogger(); int counter = 0;
-         * 
-         * while (downFace.getSpot(checkPointDown) != baseColor) {
-         * runAlgorithm("sexyMove"); counter++; // quando si ferma è perchè il pezzo
-         * bianco è nel punto giusto } // controllare se è QUELLO giusto if
-         * (frontFace.getSpot(checkPointFront[1]) == frontFace.getColorInt() &&
-         * rightFace.getSpot(checkPointRight[1]) == rightFace.getColorInt()) { // se è
-         * il pezzo giusto for (int i = counter; i < 6; i++) {// finiamo le 6 sexyMove
-         * runAlgorithm("sexyMove"); } turnOnLogger(); for (int i = 0; i < counter; i++)
-         * { runAlgorithm("sexyMove"); } if (frontFace.getSpot(checkPointFront[0]) ==
-         * baseColor || rightFace.getSpot(checkPointRight[0]) == baseColor) { // se dopo
-         * aver messo quello giusto sopra ce n'è un altro core.move('u', false); }
-         * core.reOrientate("u+"); } else { for (int i = counter; i < 6; i++) {//
-         * finiamo le 6 sexyMove runAlgorithm("sexyMove"); } turnOnLogger(); if
-         * (frontFace.getSpot(checkPointFront[0]) == baseColor ||
-         * rightFace.getSpot(checkPointRight[0]) == baseColor ||
-         * topFace.getSpot(checkPointUp) == baseColor) { // se lo abbiamo trovato sopra
-         * core.move('u', false); } else { runAlgorithm("flSwitch"); }
-         * core.reOrientate("u+"); } } } else { core.reOrientate("u+"); } }
-         */
+    public void makeSecondLayer() {
+        makeDownFace();
+        Face frontFace;
+        Face rightFace;
+        Face upFace;
 
+        // TODO:Fare che se tutti i pezzi sono a metà (come nel tuo cubo attuale) ma
+        // sono rivolti sbagliati metterne su almeno 1
+
+        int oppositeBaseColor = Face.fromColorToInt(Cube.oppositeColors.get(Face.colorMap.get(baseColor)));
+
+        for (int k = 0; k < 16; k++) {// per le 4 faccie
+            frontFace = core.getFaceByPosition(Position.FRONT);
+            rightFace = core.getFaceByPosition(Position.RIGHT);
+            upFace = core.getFaceByPosition(Position.UP);
+
+            if (is4InTheCorrectPosition()) {// se è gia a posto salta la faccia
+                core.reOrientate("u+");
+            } else {
+                // controllo se sopra c'è almeno un pezzetto spostabile
+                boolean flag = false; // true se c'è un pezzetto spostabile
+                turnOffLogger();
+                for (int i = 0; i < 4; i++) {
+                    if (frontFace.getSpot(2) != oppositeBaseColor && upFace.getSpot(6) != oppositeBaseColor) {
+                        flag = true;
+                    }
+                    core.move('u', true);
+                }
+                turnOnLogger();
+                if (!flag) {// se non ci sono spostabili
+                    while (is4InTheCorrectPosition()) {// giro fino a quando non trovo un pezzetto messo male
+                        core.reOrientate("u+");
+                    }
+                    runAlgorithm("slR");// uso questo per mettere lo spostabile messo male sopra
+                }
+
+                int[] required = new int[] { frontFace.getColorInt(), rightFace.getColorInt() };
+                Arrays.sort(required);
+                int[] current = new int[2];
+                for (int i = 0; i < 4; i++) {// prendo i colori dello spot front2 di questo orientamento
+                    current[0] = frontFace.getSpot(2);
+                    current[1] = upFace.getSpot(6);
+                    Arrays.sort(current);
+                    if (Arrays.equals(current, required)) {// se è il cubetto giusto ed è frontale
+                        if (frontFace.getColorInt() == frontFace.getSpot(2)) {
+                            runAlgorithm("slR");
+                        } else {
+                            core.move('u', false);
+                            core.reOrientate("u+");
+                            runAlgorithm("slL");
+                            core.reOrientate("u-");
+                        }
+                        break;// questo l'ho sistemato, prossima faccia
+                    } else {
+                        core.move('u', true);
+                    }
+                }
+                core.reOrientate("u+");// non è detto che ho trovato il pezzetto giusto, ma passo alla prossima
+                                       // ugualmente
+            }
+        }
     }
 
     public String solve() throws IOException, URISyntaxException {
         setBaseColor();
-        makeDownFace();
-        return "";
+        makeSecondLayer();
+        return moveHistory.toString();
     }
+
+    // ==========================================================================================================
 
     @Override
     public void onMove(char m, boolean cw) {
