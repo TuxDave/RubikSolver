@@ -68,7 +68,6 @@ public class Solver implements MoveListener {
     public void setCoreCube(Cube _new) {
         this.core = _new;
         this.core.moveListener = this;
-        System.out.println("");
     }
 
     private void setBaseColor() throws IOException, URISyntaxException {
@@ -180,7 +179,8 @@ public class Solver implements MoveListener {
      * @param algName the name of an existing algorithm
      */
     public void runAlgorithm(String algName) {
-        runAlgorithm(new Algorithm(algorithms.getValueByKey(algName)));
+        Algorithm a = new Algorithm(algorithms.getValueByKey(algName));
+        runAlgorithm(a);
     }
 
     /**
@@ -193,13 +193,13 @@ public class Solver implements MoveListener {
 
             if (s.charAt(0) == 'x') {
                 core.reOrientate(Character.toString('r') + s.charAt(1));
-                return;
+                continue;
             } else if (s.charAt(0) == 'y') {
                 core.reOrientate(Character.toString('u') + s.charAt(1));
-                return;
+                continue;
             } else if (s.charAt(0) == 'z') {
                 core.reOrientate(Character.toString('f') + s.charAt(1));
-                return;
+                continue;
             }
 
             s = s.toLowerCase();

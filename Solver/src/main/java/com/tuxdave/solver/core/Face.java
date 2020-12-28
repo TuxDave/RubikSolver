@@ -2,6 +2,7 @@ package com.tuxdave.solver.core;
 
 import com.google.common.collect.HashBiMap;
 import com.tuxdave.solver.extra.Color;
+import com.tuxdave.solver.extra.Position;
 
 import java.util.Arrays;
 
@@ -75,6 +76,10 @@ public class Face {
         }
     }
 
+    public int[] getBody() {
+        return body.clone();
+    }
+
     /**
      * sets the "color" attribute to a 0-5 number in base the value of the parameter
      * 
@@ -97,6 +102,14 @@ public class Face {
 
     public int getColorInt() {
         return getSpot(0);
+    }
+
+    public int[] getBorder(Position pos) {
+        if (pos != Position.FRONT && pos != Position.BACK) {
+            return getBorder(pos.getValue());
+        } else {
+            throw new IllegalArgumentException("Unable to get a front or a back of a face...");
+        }
     }
 
     /**

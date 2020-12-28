@@ -6,14 +6,14 @@
     "configurations": [
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Test2",
+            "name": "CodeLens (Launch) - realtimeTest",
             "request": "launch",
             "mainClass": "Test2",
             "projectName": "RubikSolver"
         },
         {
             "type": "java",
-            "name": "CodeLens (Launch) - Test1",
+            "name": "CodeLens (Launch) - test10000",
             "request": "launch",
             "mainClass": "Test1",
             "projectName": "RubikSolver"

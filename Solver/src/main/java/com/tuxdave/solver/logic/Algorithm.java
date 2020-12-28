@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class Algorithm implements Iterable<String> {
     private ArrayList<String> sequence = new ArrayList<String>();
 
-    private final static String symbols = "([RLUBDFxyz]{1}(['2+-]{1})?)";
+    private final static String symbols = "([RLUBDFxyzrludbf]{1}(['2+-]{1})?)";
 
     /**
      * @param alg the sequence, syntax: "R L2 U'" keySensitive and spaces required
@@ -16,9 +16,55 @@ public class Algorithm implements Iterable<String> {
             String[] s = alg.split(" ");
             for (String s1 : s) {
                 if (s1.matches(symbols))
-                    sequence.add(s1);
+                    if (s1.charAt(0) != 'r' && s1.charAt(0) != 'l' && s1.charAt(0) != 'u' && s1.charAt(0) != 'd'
+                            && s1.charAt(0) != 'f' && s1.charAt(0) != 'b')
+                        sequence.add(s1);
+                    else {
+                        if (s1.length() == 2 && s1.charAt(1) == '2') {
+                            throw new IllegalArgumentException("transform es: y2 in y+ y+");
+                        }
+                        String add;
+                        if (s1.length() == 1) {
+                            add = "";
+                        } else {
+                            add = s1.charAt(1) + "";
+                        }
+
+                        switch (s1.charAt(0)) {
+                            case 'r':
+                                sequence.add("L" + add);
+                                break;
+                            case 'l':
+                                sequence.add("R" + add);
+
+                                break;
+                            case 'u':
+                                sequence.add("D" + add);
+                                break;
+                            case 'd':
+                                sequence.add("U" + add);
+                                break;
+                            case 'f':
+                                sequence.add("B" + add);
+                                break;
+                            case 'b':
+                                sequence.add("F" + add);
+                                break;
+                        }
+                        String symbol;
+                        if (s1.charAt(0) == 'r' || s1.charAt(0) == 'l') {
+                            symbol = "x";
+                        } else if (s1.charAt(0) == 'f' || s1.charAt(0) == 'b') {
+                            symbol = "z";
+                        } else {
+                            symbol = "y";
+                        }
+                        add = s1.length() == 1 ? "+" : "-";
+                        sequence.add(symbol + add);
+                    }
                 else
-                    throw new IllegalArgumentException("Please respect the algorithm syntax!");
+                    throw new IllegalArgumentException(
+                            "Please respect the algorithm syntax!: " + alg + "   sym: " + s1);
             }
         }
     }
