@@ -435,9 +435,6 @@ public class Solver implements MoveListener {
         Face rightFace;
         Face upFace;
 
-        // TODO:Fare che se tutti i pezzi sono a metà (come nel tuo cubo attuale) ma
-        // sono rivolti sbagliati metterne su almeno 1
-
         int oppositeBaseColor = Face.fromColorToInt(Cube.oppositeColors.get(Face.colorMap.get(baseColor)));
 
         for (int k = 0; k < 16; k++) {// per le 4 faccie
