@@ -30,37 +30,56 @@ public class Algorithm implements Iterable<String> {
                             add = s1.charAt(1) + "";
                         }
 
-                        switch (s1.charAt(0)) {
-                            case 'r':
-                                sequence.add("L" + add);
+                        switch (s1) {
+                            case "r":
+                                sequence.add("L");
+                                sequence.add("x+");
                                 break;
-                            case 'l':
-                                sequence.add("R" + add);
-
+                            case "r'":
+                                sequence.add("L'");
+                                sequence.add("x-");
                                 break;
-                            case 'u':
-                                sequence.add("D" + add);
+                            case "l":
+                                sequence.add("R");
+                                sequence.add("x-");
                                 break;
-                            case 'd':
-                                sequence.add("U" + add);
+                            case "l'":
+                                sequence.add("R'");
+                                sequence.add("x+");
                                 break;
-                            case 'f':
-                                sequence.add("B" + add);
+                            case "f":
+                                sequence.add("B");
+                                sequence.add("z+");
                                 break;
-                            case 'b':
-                                sequence.add("F" + add);
+                            case "f'":
+                                sequence.add("B'");
+                                sequence.add("z-");
+                                break;
+                            case "b":
+                                sequence.add("F");
+                                sequence.add("z-");
+                                break;
+                            case "b'":
+                                sequence.add("F'");
+                                sequence.add("z+");
+                                break;
+                            case "u":
+                                sequence.add("D");
+                                sequence.add("y+");
+                                break;
+                            case "u'":
+                                sequence.add("D'");
+                                sequence.add("y-");
+                                break;
+                            case "d":
+                                sequence.add("U");
+                                sequence.add("y-");
+                                break;
+                            case "d'":
+                                sequence.add("U'");
+                                sequence.add("y+");
                                 break;
                         }
-                        String symbol;
-                        if (s1.charAt(0) == 'r' || s1.charAt(0) == 'l') {
-                            symbol = "x";
-                        } else if (s1.charAt(0) == 'f' || s1.charAt(0) == 'b') {
-                            symbol = "z";
-                        } else {
-                            symbol = "y";
-                        }
-                        add = s1.length() == 1 ? "+" : "-";
-                        sequence.add(symbol + add);
                     }
                 else
                     throw new IllegalArgumentException(

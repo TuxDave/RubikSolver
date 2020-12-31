@@ -1,5 +1,6 @@
 package com.tuxdave.solver.extra;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -19,15 +20,15 @@ import java.net.URL;
 public class JsonManager {
     private JSONObject src;
 
-    public JsonManager(URL _src) throws IOException {
+    public JsonManager(URL _src) throws IOException, JSONException {
         BufferedReader temp = new BufferedReader(new InputStreamReader(_src.openStream()));
         src = new JSONObject(Utils.fromFileToString(_src));
     }
 
-    public String getValueByKey(String _key) {
+    public String getValueByKey(String _key) throws NullPointerException {
         try {
             return src.getString(_key);
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             throw new NullPointerException("Algorithm :" + _key + " not found");
         }
     }

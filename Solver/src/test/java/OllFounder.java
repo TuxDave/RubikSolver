@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 
-import com.google.common.collect.HashBiMap;
 import com.tuxdave.solver.core.Cube;
 import com.tuxdave.solver.extra.Position;
 import com.tuxdave.solver.extra.Utils;
@@ -10,7 +9,7 @@ import com.tuxdave.solver.extra.ValueNotInRangeException;
 import com.tuxdave.solver.logic.Algorithm;
 import com.tuxdave.solver.logic.Solver;
 
-public class Test2 {
+public class OllFounder {
     public static void main(String[] args) throws IOException, URISyntaxException, ValueNotInRangeException {
         Solver s = new Solver(new Cube());
         HashMap<String, Algorithm> caseToAlg = new HashMap<String, Algorithm>();
@@ -18,7 +17,8 @@ public class Test2 {
             // System.out.println(s.scramble(15));
             s.scramble(21);
             // s.runAlgorithm(new Algorithm("R U R' U R U' R' U R U2 R'"));
-            s.solve();
+            s.setBaseColor();
+            s.makeSecondLayer();
             // secondo layer ok
             Cube original = s.getCoreCube();
             // System.out.println(original);

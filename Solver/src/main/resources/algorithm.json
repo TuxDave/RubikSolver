@@ -6,6 +6,11 @@
     "slL": "U' L' U L U F U' F'",
     "sledgeHammerL": "R U R' U'",
     "sledgeHammerR": "R' F R F'",
+
+    "101000100100111001010":"R' U' R U' R' U F' U F R",
+    "100000111000110110100":"l U2 L' U' L U' l'",
+    "110100000111010010010":"l' U' r' U2 L U2 L' U2 r U l",
+
     "100111001110000011000":"R U R' F' U' F R U' R'",
     "101010000110101001010":"F' L' U' L U L' U' L U F",
     "100110100100100010110":"F R U R' U' F' U F R U R' U' F'",

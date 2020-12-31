@@ -11,7 +11,11 @@ import com.tuxdave.solver.core.Face;
 import com.tuxdave.solver.extra.JsonManager;
 import com.tuxdave.solver.extra.MoveListener;
 import com.tuxdave.solver.extra.Position;
+import com.tuxdave.solver.extra.Utils;
 import com.tuxdave.solver.extra.ValueNotInRangeException;
+
+import org.apache.commons.lang3.ObjectUtils.Null;
+import org.json.JSONException;
 
 public class Solver implements MoveListener {
     private Cube core;
@@ -70,7 +74,7 @@ public class Solver implements MoveListener {
         this.core.moveListener = this;
     }
 
-    private void setBaseColor() throws IOException, URISyntaxException {
+    public void setBaseColor() throws IOException, URISyntaxException {
         HashMap<Integer, Integer> moves = new HashMap<>();
         Cube original = new Cube(core);
         Cube pivot = new Cube(core);
@@ -178,7 +182,7 @@ public class Solver implements MoveListener {
      * 
      * @param algName the name of an existing algorithm
      */
-    public void runAlgorithm(String algName) {
+    public void runAlgorithm(String algName) throws JSONException {
         Algorithm a = new Algorithm(algorithms.getValueByKey(algName));
         runAlgorithm(a);
     }
@@ -489,9 +493,57 @@ public class Solver implements MoveListener {
         }
     }
 
+    public void makeOLL() throws IOException, URISyntaxException {
+        makeSecondLayer();
+
+        // tentativo di oll per ogni orientamento del upLayer
+        Solver tester;
+        int i;
+        for (i = 0; i < 4; i++) {
+            tester = new Solver(new Cube(core));
+            for (int j = 0; j < i; j++) {
+                tester.core.move('u', true);
+            }
+            try {
+                tester.runAlgorithm(Utils.ollToString(tester.core));
+            } catch (NullPointerException e) {
+                // orientamento upLayer non coretto, al prossimo ciclo potrebbe mettersi aposto
+                // ignored
+            }
+            Face upFace = tester.core.getFaceByPosition(Position.UP);
+            int upColor = upFace.getColorInt();
+            boolean ok = true;
+            for (int c : upFace.getBody()) {
+                if (c != upColor) {
+                    ok = false;
+                    break;
+                }
+            }
+            if (ok) {
+                break;
+            }
+        }
+        if (i != 4) {
+            for (int j = 0; j < i; j++) {
+                core.move('u', true);
+            }
+            runAlgorithm(Utils.ollToString(core));
+        } else {
+            System.out.println(Utils.ollToString(core));
+            core.move('u', true);
+            System.out.println(Utils.ollToString(core));
+            core.move('u', true);
+            System.out.println(Utils.ollToString(core));
+            core.move('u', true);
+            System.out.println(Utils.ollToString(core));
+            core.move('u', true);
+            System.out.println("stop");
+        }
+    }
+
     public String solve() throws IOException, URISyntaxException {
         setBaseColor();
-        makeSecondLayer();
+        makeOLL();
         return moveHistory.toString();
     }
 

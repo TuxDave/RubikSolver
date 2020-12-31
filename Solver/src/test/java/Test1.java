@@ -1,5 +1,6 @@
 import com.tuxdave.solver.core.Cube;
 import com.tuxdave.solver.core.Face;
+import com.tuxdave.solver.extra.Position;
 import com.tuxdave.solver.extra.ValueNotInRangeException;
 import com.tuxdave.solver.logic.Solver;
 
@@ -11,8 +12,7 @@ import java.net.URISyntaxException;
 public class Test1 {
     public static void main(String[] args) throws IOException, URISyntaxException, ValueNotInRangeException {
         Solver solver = new Solver(new Cube());
-        FileWriter r = new FileWriter(
-                new File("/home/tuxdave/Documenti/MyProjects/RubikSolver/RubiksRecognition/notTracked/test10000.csv"));
+        FileWriter r = new FileWriter(new File("notTracked/test10000.csv"));
         String scramble;
         double avarageMoves = 0;
         int tries = 10000;
@@ -21,10 +21,12 @@ public class Test1 {
         Face front;
         Face back;
         Face right;
+        Face up;
         for (int i = 0; i < tries; i++) {
             scramble = solver.scramble(15);
             solver.solve();
 
+            up = solver.getCoreCube().getFaceByPosition(Position.UP);
             down = solver.getCoreCube().getFaceByPosition("down");
             front = solver.getCoreCube().getFaceByPosition("front");
             back = solver.getCoreCube().getFaceByPosition("back");
@@ -32,6 +34,7 @@ public class Test1 {
             int colorDown = down.getColorInt();
             int colorFront = front.getColorInt();
             int colorBack = back.getColorInt();
+            int colorUp = up.getColorInt();
             ok = down.getSpot(0) == colorDown && down.getSpot(2) == colorDown && down.getSpot(4) == colorDown
                     && down.getSpot(6) == colorDown && down.getSpot(8) == colorDown && down.getSpot(1) == colorDown
                     && down.getSpot(3) == colorDown && down.getSpot(5) == colorDown && down.getSpot(7) == colorDown
@@ -42,6 +45,14 @@ public class Test1 {
                     && right.getSpot(8) == right.getColorInt() && right.getSpot(4) == right.getColorInt();
             r.write(scramble + "," + solver.getMoveHistory() + "," + solver.getMoveHistory().getMoveLength() + "," + ok
                     + "\n");
+
+            if (ok) {
+                for (int c : up.getBody()) {
+                    if (c != colorUp) {
+                        ok = false;
+                    }
+                }
+            }
             avarageMoves += solver.getMoveHistory().getMoveLength();
         }
         avarageMoves /= tries;
