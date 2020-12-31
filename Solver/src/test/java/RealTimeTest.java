@@ -15,8 +15,8 @@ public class RealTimeTest {
         // s.setBaseColor();
         // s.makeSecondLayer();
         // s.runAlgorithm(new Algorithm("U"));
-        s.runAlgorithm("110100000111010010010");
-        System.out.println(Utils.ollToString(s.getCoreCube()));
+        s.runAlgorithm(new Algorithm("S M S M"));
+        // System.out.println(Utils.ollToString(s.getCoreCube()));
         System.out.println(s.getCoreCube());
         System.out.println(s.getMoveHistory());
     }

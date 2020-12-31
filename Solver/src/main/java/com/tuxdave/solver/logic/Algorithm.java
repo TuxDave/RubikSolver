@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class Algorithm implements Iterable<String> {
     private ArrayList<String> sequence = new ArrayList<String>();
 
-    private final static String symbols = "([RLUBDFxyzrludbf]{1}(['2+-]{1})?)";
+    private final static String symbols = "([RLUBDFMSxyzrludbf]{1}(['2+-]{1})?)";
 
     /**
      * @param alg the sequence, syntax: "R L2 U'" keySensitive and spaces required
@@ -18,7 +18,28 @@ public class Algorithm implements Iterable<String> {
                 if (s1.matches(symbols))
                     if (s1.charAt(0) != 'r' && s1.charAt(0) != 'l' && s1.charAt(0) != 'u' && s1.charAt(0) != 'd'
                             && s1.charAt(0) != 'f' && s1.charAt(0) != 'b')
-                        sequence.add(s1);
+                        if (s1.charAt(0) == 'M') {
+                            if (s1.length() == 1) {
+                                sequence.add("R");
+                                sequence.add("L'");
+                                sequence.add("x-");
+                            } else {
+                                sequence.add("R'");
+                                sequence.add("L");
+                                sequence.add("x+");
+                            }
+                        } else if (s1.charAt(0) == 'S') {
+                            if (s1.length() == 1) {
+                                sequence.add("F'");
+                                sequence.add("B");
+                                sequence.add("z+");
+                            } else {
+                                sequence.add("F");
+                                sequence.add("B'");
+                                sequence.add("z-");
+                            }
+                        } else
+                            sequence.add(s1);
                     else {
                         if (s1.length() == 2 && s1.charAt(1) == '2') {
                             throw new IllegalArgumentException("transform es: y2 in y+ y+");
