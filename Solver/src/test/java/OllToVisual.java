@@ -1,6 +1,6 @@
 public class OllToVisual {
         public static void main(String[] args) {
-                String str = "100010011010100110100";
+                String str = "100010100001000110111";
                 System.out.println(" " + Character.toString(str.charAt(17)) + Character.toString(str.charAt(16))
                                 + Character.toString(str.charAt(15)));
                 System.out.println(Character.toString(str.charAt(18)) + Character.toString(str.charAt(1))
