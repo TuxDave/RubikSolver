@@ -35,24 +35,17 @@ public class Test1 {
             int colorFront = front.getColorInt();
             int colorBack = back.getColorInt();
             int colorUp = up.getColorInt();
-            ok = down.getSpot(0) == colorDown && down.getSpot(2) == colorDown && down.getSpot(4) == colorDown
-                    && down.getSpot(6) == colorDown && down.getSpot(8) == colorDown && down.getSpot(1) == colorDown
-                    && down.getSpot(3) == colorDown && down.getSpot(5) == colorDown && down.getSpot(7) == colorDown
-                    && front.getSpot(5) == colorFront && front.getSpot(6) == colorFront
-                    && front.getSpot(7) == colorFront && back.getSpot(5) == colorBack && back.getSpot(7) == colorBack
-                    && back.getSpot(6) == colorBack && front.getSpot(8) == colorFront && front.getSpot(4) == colorFront
-                    && back.getSpot(8) == colorBack && back.getSpot(4) == colorBack
-                    && right.getSpot(8) == right.getColorInt() && right.getSpot(4) == right.getColorInt();
-            r.write(scramble + "," + solver.getMoveHistory() + "," + solver.getMoveHistory().getMoveLength() + "," + ok
-                    + "\n");
-
-            if (ok) {
-                for (int c : up.getBody()) {
-                    if (c != colorUp) {
+            ok = true;
+            for (int k = 0; k < 6; k++) {
+                Face f = solver.getCoreCube().getFaceByColor(k);
+                for (int faceColor : f.getBody()) {
+                    if (faceColor != k) {
                         ok = false;
                     }
                 }
             }
+            r.write(scramble + "," + solver.getMoveHistory() + "," + solver.getMoveHistory().getMoveLength() + "," + ok
+                    + "\n");
             avarageMoves += solver.getMoveHistory().getMoveLength();
         }
         avarageMoves /= tries;

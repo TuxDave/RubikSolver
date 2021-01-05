@@ -65,5 +65,13 @@
     "110100000111010010010":"y+ R U2 R2 F R F' U2 M' U R U' r'",
     "110100000010110010011":"M U R U R' U' M' R' F R F'",
     "110001000010010110011":"R U R' U R' F R F' U2 R' F R F'",
-    "110101010010010010010":"M U R U R' U' M M U R U' r'"
+    "110101010010010010010":"M U R U R' U' M M U R U' r'",
+
+    "TPerm":"R U R' U' R' F R2 U' R' U' R U R' F'",
+    "YPerm":"F R U' R' U' R U R' F' R U R' U' R' F R F'",
+    "HPerm":"M M U M M U2 M M U M M",
+    "ZPerm":"M M U M M U M' U2 M M U2 M' U2",
+    "Z1Perm":"M M U' M M U' M' U2 M M U2 M' U2",
+    "UaPerm":"R U' R U R U R U' R' U' R2",
+    "UbPerm":"R2 U R U R' U' R' U' R' U R'"
 } 

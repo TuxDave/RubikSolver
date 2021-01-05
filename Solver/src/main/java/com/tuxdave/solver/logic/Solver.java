@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashMap;
 
+import javax.swing.tree.FixedHeightLayoutCache;
+
 import com.google.common.collect.HashBiMap;
 import com.tuxdave.solver.core.Cube;
 import com.tuxdave.solver.core.Face;
@@ -14,6 +16,7 @@ import com.tuxdave.solver.extra.Position;
 import com.tuxdave.solver.extra.Utils;
 import com.tuxdave.solver.extra.ValueNotInRangeException;
 
+import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.ObjectUtils.Null;
 import org.json.JSONException;
 
@@ -541,9 +544,130 @@ public class Solver implements MoveListener {
         }
     }
 
+    private interface LocalUtils {
+        /**
+         * @param face the face to scan
+         * @return true if the upper layer of face front is all equals
+         */
+        public boolean checkFrontUpLayerEquals(Face face);
+
+        /**
+         * @param face the face to scan
+         * @return true if both edges of the upper layer of front face are equals
+         */
+        public boolean checkFrontEdgeEquals(Face face);
+
+        /**
+         * @param face the face to scan
+         * @return true if the spot 0 == spot 2
+         */
+        public boolean check2EqualsTo0(Face face);
+    }
+
+    private void makePLL() throws IOException, URISyntaxException {
+        makeOLL();
+
+        Face frontFace;
+        Face rightFace;
+        Face backFace;
+
+        LocalUtils utils = new LocalUtils() {
+            @Override
+            public boolean checkFrontUpLayerEquals(Face face) {
+                return face.getSpot(1) == face.getSpot(2) && face.getSpot(2) == face.getSpot(3);
+            }
+
+            @Override
+            public boolean checkFrontEdgeEquals(Face face) {
+                return face.getSpot(1) == face.getSpot(3);
+            }
+
+            @Override
+            public boolean check2EqualsTo0(Face face) {
+                return face.getSpot(0) == face.getSpot(2);
+            }
+
+        };
+
+        // adjust edges
+        boolean tPermDone = false;
+        frontFace = core.getFaceByPosition(Position.FRONT);
+        rightFace = core.getFaceByPosition(Position.RIGHT);
+        for (int i = 0; i < 4; i++) {
+            if (utils.checkFrontEdgeEquals(frontFace) && !utils.checkFrontEdgeEquals(rightFace)) {
+                core.move('u', true);
+                runAlgorithm("TPerm");
+                /*
+                 * while (!utils.checkFrontEdgeEquals(frontFace)) { core.move('u', true); }
+                 */
+                tPermDone = true;
+                break;
+            } else {
+                core.move('u', true);
+            }
+        }
+        if (!tPermDone && !utils.checkFrontEdgeEquals(rightFace) && !utils.checkFrontEdgeEquals(frontFace)) {
+            for (int i = 0; i < 4; i++) {
+                if (frontFace.getSpot(1) == frontFace.getColorInt()) {
+                    runAlgorithm("YPerm");
+                    break;
+                } else {
+                    core.move('u', true);
+                }
+            }
+        }
+
+        for (int i = 0; i < 4; i++) {
+            if (frontFace.getSpot(1) == frontFace.getColorInt()) {
+                break;
+            }
+            core.move('u', true);
+        }
+
+        // edges adjusted, adjust corners
+        if (utils.check2EqualsTo0(frontFace) && utils.check2EqualsTo0(rightFace)) {
+            return;
+        }
+        boolean uPermDone = false;
+        for (int i = 0; i < 4; i++) {
+            if (utils.checkFrontUpLayerEquals(frontFace)) {
+                uPermDone = true;
+                core.move('u');
+                if (frontFace.getSpot(2) == rightFace.getSpot(1)) {
+                    runAlgorithm("UaPerm");
+                } else {
+                    runAlgorithm("UbPerm");
+                }
+                break;
+            } else {
+                core.move('u', true);
+            }
+        }
+
+        if (!uPermDone) {
+            backFace = core.getFaceByPosition(Position.BACK);
+            if (frontFace.getSpot(2) == backFace.getColorInt()) {
+                runAlgorithm("HPerm");
+            } else {
+                if (frontFace.getSpot(2) == rightFace.getColorInt()) {
+                    runAlgorithm("ZPerm");
+                } else {
+                    runAlgorithm("Z1Perm");
+                }
+            }
+        }
+
+        for (int i = 0; i < 4; i++) {
+            if (frontFace.getSpot(1) == frontFace.getColorInt()) {
+                break;
+            }
+            core.move('u', true);
+        }
+    }
+
     public String solve() throws IOException, URISyntaxException {
         setBaseColor();
-        makeOLL();
+        makePLL();
         return moveHistory.toString();
     }
 
