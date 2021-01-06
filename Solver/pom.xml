@@ -4,7 +4,7 @@
 
     <groupId>com.tuxdave</groupId>
     <artifactId>RubikSolver</artifactId>
-    <version>0.1-SUPERALPHA</version>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
