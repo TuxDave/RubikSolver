@@ -1,5 +1,6 @@
 package com.tuxdave.solver.core;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -10,8 +11,6 @@ import com.tuxdave.solver.extra.Color;
 import com.tuxdave.solver.extra.MoveListener;
 import com.tuxdave.solver.extra.Position;
 import com.tuxdave.solver.extra.Utils;
-
-import org.checkerframework.checker.units.qual.Length;
 
 public class Cube {
     private Face[] faces;
@@ -45,7 +44,7 @@ public class Cube {
      * @throws URISyntaxException
      */
     public Cube(String path) throws IOException, URISyntaxException {
-        this(new URL(path));
+        this(new File(path).toURI().toURL());
     }
 
     public Cube(Cube toClone) throws IOException, URISyntaxException {
