@@ -35,7 +35,7 @@
         {
             "type": "java",
             "name": "Main",
-            "args": "file /home/tuxdave/Documenti/MyProjects/RubikSolver/Solver/examples/cube3.cube",
+            "args": "auto",
             "request": "launch",
             "mainClass": "com.tuxdave.solver.Main",
             "projectName": "RubikSolver"

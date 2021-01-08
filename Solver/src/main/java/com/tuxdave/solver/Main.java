@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import com.tuxdave.solver.core.Cube;
+import com.tuxdave.solver.extra.ValueNotInRangeException;
 import com.tuxdave.solver.logic.Solver;
 
 import net.sourceforge.argparse4j.ArgumentParsers;
@@ -17,7 +18,12 @@ import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
 
 public class Main {
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    public static void main(String[] args) throws IOException, URISyntaxException, ValueNotInRangeException {
+
+        if (args.length == 1) {
+            args = new String[] { args[0], "" };
+        }
+
         System.out.println("###############################################################\n"
                 + "#               _     _ _     _____       _                   #\n"
                 + "#              | |   (_) |   / ____|     | |                  #\n"
@@ -30,7 +36,7 @@ public class Main {
 
         ArgumentParser parser = ArgumentParsers.newFor("RubikSolver").build();// used only to display the helps
         parser.addArgument("type").help(
-                "1/cube (RECOMMENDED) to get as next the cube model as string of numbers (colors) in the ruled notation (see https://github.com/TuxDave/RubikSolver)\n2/file to get as next the path to the file containing the cube model using the correct notation, see GitHub");
+                "1/cube (RECOMMENDED) to get as next the cube model as string of numbers (colors) in the ruled notation (see https://github.com/TuxDave/RubikSolver)\n2/file to get as next the path to the file containing the cube model using the correct notation, see GitHub\n3/auto prints a 21 moves scramble and its solve");
         parser.addArgument("model").help("the model or the path to reach it of the selected working method");
         try {
             parser.parseArgs(args);
@@ -42,7 +48,8 @@ public class Main {
         String type = args[0];
         String model = args[1];
 
-        if (!type.equals("1") && !type.equals("cube") && !type.equals("2") && !type.equals("file")) {
+        if (!type.equals("1") && !type.equals("cube") && !type.equals("2") && !type.equals("file") && !type.equals("3")
+                && !type.equals("auto")) {
             System.out.println("Error: invalid first positional argument: " + type + " - see -h for documentation");
             System.exit(1);
         }
@@ -89,6 +96,16 @@ public class Main {
                     System.out.println("Unable to find the file model or content wrong ERROR!");
                     System.exit(2);
                 }
+                break;
+            case "3":
+            case "auto":
+                Solver s2 = new Solver(new Cube());
+                System.out.println("");
+                System.out.println(s2.scramble());
+                System.out.println("");
+                s2.solve();
+                System.out.println(s2.getMoveHistory());
+                break;
         }
     }
 }
