@@ -110,11 +110,12 @@ public class Main {
             case "4":
             case "scramble":
                 Solver s3 = new Solver(new Cube());
-                s3.scramble();
+                String scr = s3.scramble();
                 String stringCube = s3.getCoreCube().toString();
                 stringCube = stringCube.replace(" ", "");
                 stringCube = stringCube.replace("\n", "");
                 System.out.println("");
+                System.out.println(scr);
                 System.out.println(stringCube);
         }
     }

@@ -2,3 +2,4 @@ target
 Solver/target
 notTracked
 WebSolver/__pycache__
+WebSolver/__pycache__/*
