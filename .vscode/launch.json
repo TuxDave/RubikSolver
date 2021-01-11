@@ -42,7 +42,7 @@
         {
             "type": "java",
             "name": "Main",
-            "args": "auto",
+            "args": "scramble",
             "request": "launch",
             "mainClass": "com.tuxdave.solver.Main",
             "projectName": "RubikSolver"
