@@ -15,6 +15,8 @@ function setupFace() {
 	}
 }
 
+function scramble() {}
+
 function selectColor() {
 	selectedColor = document.getElementById("colors").value;
 }
