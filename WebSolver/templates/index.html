@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>rubikSolver</title>
+		<style>
+			@import url("{{ url_for('static',filename='styles/style1.css') }}");
+		</style>
+		<script src="{{ url_for('static',filename='JS/main.js') }}"></script>
+	</head>
+	<body onload="setupFace();">
+		<center>
+			<h1>rubikSolver</h1>
+			<button title="Scrambles a new solved cube">Scramble</button>
+			<button onclick="" title="Solves the cube below">Solve</button>
+			<button onclick="setupFace()" title="Avoid the cube">Reset</button>
+
+			<br />
+			<br />
+			<br />
+
+			<div id="cubeDiv">
+				<h3 onmouseout="selectColor()" style="border: solid">
+					picked color:
+					<select name="colors" id="colors">
+						<option value="white">white</option>
+						<option value="blue">blue</option>
+						<option value="yellow">yellow</option>
+						<option value="green">green</option>
+						<option value="orange">orange</option>
+						<option value="red">red</option>
+					</select>
+				</h3>
+				<table>
+					<tr>
+						<td>
+							<table class="Face" id="yellow">
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table class="Face" id="green">
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="Face" id="orange">
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="Face" id="blue">
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+							</table>
+						</td>
+						<td>
+							<table class="Face" id="red">
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table class="Face" id="white">
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+								<tr>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+									<td class="Spot"></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</center>
+	</body>
+</html>

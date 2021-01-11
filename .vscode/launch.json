@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "WebApp",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://127.0.0.1:5000",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
             "type": "java",
             "name": "Launch OllFounder",
             "request": "launch",

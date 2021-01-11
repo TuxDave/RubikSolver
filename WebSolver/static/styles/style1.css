@@ -1,0 +1,53 @@
+body{
+    font-family: monospace;
+    background-color: lightyellow;
+}
+
+h1{
+    font-size: 50px;
+    color: green;
+}
+
+select, button {
+	padding: 15px 25px;
+	color: blue;
+	background-color: rgb(224, 240, 0);
+	font-size: 35px;
+	text-align: center;
+	border: none;
+	border-radius: 10px;
+	box-shadow: 0 5px grey; /*aggiunge l'ombra sotto*/
+	outline: none; /*toglie il riquadro di evidenziazione*/
+}
+select:hover, button:hover {
+	/*onHover*/
+	background-color: rgb(255, 237, 190);
+}
+select:active, button:active {
+	/*onClick*/
+	background-color: rgb(232, 241, 106);
+	transform: translateY(
+		3px
+	); /*sposto in diagonale per dare l'effetto di click*/
+}
+
+input{
+	width: 20px;
+	height: 20px;
+}
+
+.Face{
+	left: 0px;
+	width: 200px;
+	height: 200px;
+	border: solid;
+}
+.Spot{
+	width: 33.3%;
+	height: 33.3%;
+	border:solid;
+}
+.Spot:hover{
+	background-color: aqua;
+	transition: 200ms;
+}
