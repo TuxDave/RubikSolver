@@ -11,6 +11,7 @@ import java.net.URISyntaxException;
 
 import com.tuxdave.solver.core.Cube;
 import com.tuxdave.solver.extra.ValueNotInRangeException;
+import com.tuxdave.solver.logic.Scrambler;
 import com.tuxdave.solver.logic.Solver;
 
 import net.sourceforge.argparse4j.ArgumentParsers;
@@ -36,7 +37,7 @@ public class Main {
 
         ArgumentParser parser = ArgumentParsers.newFor("RubikSolver").build();// used only to display the helps
         parser.addArgument("type").help(
-                "1/cube (RECOMMENDED) to get as next the cube model as string of numbers (colors) in the ruled notation (see https://github.com/TuxDave/RubikSolver)\n2/file to get as next the path to the file containing the cube model using the correct notation, see GitHub\n3/auto prints a 21 moves scramble and its solve");
+                "1/cube (RECOMMENDED) to get as next the cube model as string of numbers (colors) in the ruled notation (see https://github.com/TuxDave/RubikSolver)\n2/file to get as next the path to the file containing the cube model using the correct notation, see GitHub\n3/auto prints a 21 moves scramble and its solve\n4/scramble to scramble the cube and release it under the 54 int notation");
         parser.addArgument("model").help("the model or the path to reach it of the selected working method");
         try {
             parser.parseArgs(args);
@@ -49,7 +50,7 @@ public class Main {
         String model = args[1];
 
         if (!type.equals("1") && !type.equals("cube") && !type.equals("2") && !type.equals("file") && !type.equals("3")
-                && !type.equals("auto")) {
+                && !type.equals("auto") && !type.equals("4") && !type.equals("scramble")) {
             System.out.println("Error: invalid first positional argument: " + type + " - see -h for documentation");
             System.exit(1);
         }
@@ -106,6 +107,15 @@ public class Main {
                 s2.solve();
                 System.out.println(s2.getMoveHistory());
                 break;
+            case "4":
+            case "scramble":
+                Solver s3 = new Solver(new Cube());
+                s3.scramble();
+                String stringCube = s3.getCoreCube().toString();
+                stringCube = stringCube.replace(" ", "");
+                stringCube = stringCube.replace("\n", "");
+                System.out.println("");
+                System.out.println(stringCube);
         }
     }
 }
