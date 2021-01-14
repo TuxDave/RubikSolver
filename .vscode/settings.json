@@ -1,4 +1,5 @@
 {
     "java.configuration.updateBuildConfiguration": "automatic",
-    "terminal.explorerKind": "external"
+    "terminal.explorerKind": "external",
+    "python.pythonPath": "notTracked/flaskOnSolver/bin/python"
 }
