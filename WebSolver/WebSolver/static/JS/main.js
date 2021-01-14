@@ -26,7 +26,8 @@ function setupFace() {
 		let els = document.getElementById(color).getElementsByTagName("td");
 		for (let i = 0; i < 9; i++) {
 			els[i].addEventListener("click", () => {
-				if (i != 4) els[i].style.backgroundColor = RGB_MAP[selectColor];
+				if (i != 4)
+					els[i].style.backgroundColor = RGB_MAP[selectedColor];
 			});
 			els[i].style.backgroundColor = "lightyellow";
 		}
@@ -62,7 +63,6 @@ function applyState(_state) {
 			spots[SPOT_ORDER[j]].style.backgroundColor =
 				RGB_MAP[COLORS_MAP[faceState[j]]];
 		}
-		aa;
 	}
 }
 

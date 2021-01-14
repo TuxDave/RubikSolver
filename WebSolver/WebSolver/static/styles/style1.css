@@ -48,6 +48,6 @@ input{
 	border:solid;
 }
 .Spot:hover{
-	background-color: aqua;
+	border: double;
 	transition: 200ms;
 }
