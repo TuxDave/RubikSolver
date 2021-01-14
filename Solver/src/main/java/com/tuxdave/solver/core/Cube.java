@@ -395,4 +395,16 @@ public class Cube {
         }
         return ret;
     }
+
+    public String toStringLinear() {
+        String ret = "";
+        String[] poses = { "up", "front", "right", "back", "left", "down" };
+        for (int i = 0; i < poses.length; i++) {
+            Face face = getFaceByPosition(poses[i]);
+            for (int j = 0; j < 9; j++) {
+                ret += Integer.toString(face.getSpot(j));
+            }
+        }
+        return ret;
+    }
 }
