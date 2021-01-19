@@ -51,3 +51,8 @@ input{
 	border: double;
 	transition: 200ms;
 }
+
+#infoBox{
+	margin-left: 5%;
+	margin-right: 5%;
+}

@@ -1,5 +1,5 @@
 import sys
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request
 import subprocess
 import json
 import pathlib
@@ -18,6 +18,13 @@ def scramble():
     out = out.split("\n")[-3:-1]
     out = {"scramble":out[0], "state":out[1]}
     return jsonify(out)
+
+@server.route("/solve", methods=["GET"])
+def solve():
+    state = request.args.get("cube")
+    solve = subprocess.run(f"java -jar {PATH}rubikSolver.jar 1 {state}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout.decode()
+    solve = solve.split("#")[-1]
+    return jsonify({"solve": solve})
 
 if __name__ == "__main__":
     server.run(debug=True, use_debugger=False, use_reloader=True)

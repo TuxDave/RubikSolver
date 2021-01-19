@@ -14,7 +14,9 @@
 			<button onclick="scramble()" title="Scrambles a new solved cube">
 				Scramble
 			</button>
-			<button onclick="" title="Solves the cube below">Solve</button>
+			<button onclick="solve()" title="Solves the cube below">
+				Solve
+			</button>
 			<button onclick="setupFace()" title="Avoid the cube">Reset</button>
 
 			<br />
@@ -22,12 +24,8 @@
 			<br />
 
 			<div id="cubeDiv">
-				<h2 id="scramble"></h2>
-				<h3
-					id="picker"
-					onmouseout="selectColor()"
-					style="border: solid"
-				>
+				<h2 id="infoBox"></h2>
+				<h3 id="picker" onmouseout="selectColor()">
 					picked color:
 					<select name="colors" id="colors">
 						<option value="white">white</option>
