@@ -20,7 +20,7 @@ def scramble():
     return jsonify(out)
 
 @server.route("/solve", methods=["GET"])
-def solve():
+def solve(): #TODO: aggiungere la possibilità di azionare i motori del robottone dal sito
     state = request.args.get("cube")
     solve = subprocess.run(f"java -jar {PATH}rubikSolver.jar 1 {state}", shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout.decode()
     solve = solve.split("#")[-1]

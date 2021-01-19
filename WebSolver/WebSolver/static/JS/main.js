@@ -18,6 +18,7 @@ const RGB_MAP = {
 	white: "white",
 };
 const MAP_RGB = inverse(RGB_MAP);
+const SOLVED = "222222222333333333444444444111111111555555555000000000";
 
 let selectedColor = "white";
 let drawer = true;
@@ -41,17 +42,21 @@ function setupFace() {
 }
 
 function solve() {
+	infoBox = document.getElementById("infoBox");
+	let scramble = infoBox.innerHTML;
+	infoBox.innerHTML = "Solving...";
 	let state = getState();
 	let url = window.location.href;
-	infoBox = document.getElementById("infoBox");
 	infoBox.style.visibility = "visible";
 	fetch(url + "solve?cube=" + state)
 		.then((result) => result.json())
 		.then((solve) => {
 			solve = solve["solve"];
+			infoBox.innerHTML = scramble;
 			if (infoBox.innerHTML.length != 0)
 				infoBox.innerHTML += "<br>Solve: " + solve;
 			else infoBox.innerHTML = "Solve: " + solve;
+			applyState(SOLVED);
 		});
 	applyState("");
 }
