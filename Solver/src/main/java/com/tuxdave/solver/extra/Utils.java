@@ -22,6 +22,7 @@ public class Utils {
             if (line != null)
                 ret += line + '\n';
         } while (line != null);
+        r.close();
         return ret;
     }
 
@@ -34,6 +35,7 @@ public class Utils {
             if (line != null)
                 ret += line + '\n';
         } while (line != null);
+        r.close();
         return ret;
     }
 
