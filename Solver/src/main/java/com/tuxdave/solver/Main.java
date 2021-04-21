@@ -6,23 +6,21 @@ Error codes:
 
 package com.tuxdave.solver;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import com.tuxdave.solver.core.Cube;
 import com.tuxdave.solver.extra.ValueNotInRangeException;
-import com.tuxdave.solver.logic.Scrambler;
 import com.tuxdave.solver.logic.Solver;
-
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
+
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 public class Main {
     public static void main(String[] args) throws IOException, URISyntaxException, ValueNotInRangeException {
 
         if (args.length == 1) {
-            args = new String[] { args[0], "" };
+            args = new String[]{args[0], ""};
         }
 
         System.out.println("###############################################################\n"
@@ -117,6 +115,7 @@ public class Main {
                 System.out.println("");
                 System.out.println(scr);
                 System.out.println(stringCube);
+                break;
         }
     }
 }

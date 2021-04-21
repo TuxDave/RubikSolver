@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="RestSolver" target="1.8" />
+      <module name="RestSolver" target="11" />
       <module name="Solver" target="8" />
     </bytecodeTargetLevel>
   </component>
